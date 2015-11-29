@@ -14,7 +14,7 @@ public class Button extends BaseDeviceControl
 
     public void pressButton()
     {
-        this.logger.info(String.format("Tapping Button with selector [%].", new Object[]{this.selector
+        this.logger.info(String.format("Tapping Button with selector [%].", new Object[]{this._selector
             .toString()}));
         tap();
     }

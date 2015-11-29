@@ -14,7 +14,7 @@ public class Image extends BaseDeviceControl
 
     public void clickImage()
     {
-        this.logger.info(String.format("Clicking image with selector [%s].", new Object[]{this.selector
+        this.logger.info(String.format("Clicking image with selector [%s].", new Object[]{this._selector
             .toString()}));
         this.element.click();
     }

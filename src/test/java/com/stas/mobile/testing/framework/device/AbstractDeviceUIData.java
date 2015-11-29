@@ -12,10 +12,10 @@ import com.stas.mobile.testing.framework.util.logger.LogController;
 
 public abstract class AbstractDeviceUIData implements DeviceUIData
 {
-    protected SynchronizationHelper syncHelper;
-    protected DeviceElementQueryHelper queryHelper;
-    private LogController logger = new LogController(AbstractUIData.class);
-    protected EnvironmentUtil env = EnvironmentUtil.getInstance();
-    protected AppiumDriver driver = WebDriverWrapper.getAppiumDriver();
-    protected MobileHelper mobileHelper;
+    protected SynchronizationHelper _syncHelper;
+    protected DeviceElementQueryHelper _queryHelper;
+    private LogController _logger = new LogController(AbstractUIData.class);
+    protected EnvironmentUtil _env = EnvironmentUtil.getInstance();
+    protected AppiumDriver _driver = WebDriverWrapper.getAppiumDriver();
+    protected MobileHelper _mobileHelper;
 }

@@ -1,4 +1,3 @@
-
 package com.stas.mobile.testing.framework.queryhelpers;
 
 import io.appium.java_client.MobileElement;
@@ -13,215 +12,198 @@ import org.openqa.selenium.WebElement;
 import com.stas.mobile.testing.framework.util.environment.EnvironmentUtil;
 import com.stas.mobile.testing.framework.util.logger.LogController;
 
-public class DeviceElementQueryHelper
-{
-    private LogController logger = new LogController(DeviceElementQueryHelper.class);
-    private EnvironmentUtil env = EnvironmentUtil.getInstance();
-    private IOSDriver iosDriver;
-    private AndroidDriver androidDriver;
+public class DeviceElementQueryHelper {
+	private LogController _logger = new LogController(
+			DeviceElementQueryHelper.class);
+	private EnvironmentUtil _env = EnvironmentUtil.getInstance();
+	private IOSDriver _iosDriver;
+	private AndroidDriver _androidDriver;
 
-    public DeviceElementQueryHelper(Object driver)
-    {
-        if (this.env.getIsMobileIOS())
-        {
-            this.iosDriver = ((IOSDriver) driver);
-        }
-        else
-        {
-            this.androidDriver = ((AndroidDriver) driver);
-        }
-    }
+	public DeviceElementQueryHelper(Object driver) {
+		if (_env.getIsMobileIOS()) {
+			_iosDriver = ((IOSDriver) driver);
+		} else {
+			_androidDriver = ((AndroidDriver) driver);
+		}
+	}
 
-    public MobileElement findElement(String selector)
-    {
-        if (this.env.getIsMobileIOS())
-        {
-            if (selector.contains("//"))
-            {
-                this.logger.debug(
-                    String.format("Found IOS Xpath Selector [%s], using findElementByXPath.", new Object[]{selector}));
+	public MobileElement findElement(String selector) {
+		if (_env.getIsMobileIOS()) {
+			if (selector.contains("//")) {
+				_logger.debug(String
+						.format("Found IOS Xpath Selector [%s], using findElementByXPath.",
+								new Object[] { selector }));
 
-                return (MobileElement) this.iosDriver.findElementByXPath(selector);
-            }
-            if (selector.startsWith("."))
-            {
-                this.logger.debug(
-                    String.format("Found IOS UIAutomator Selector [%s], using findElementByIosUIAutomation.",
-                        new Object[]{selector}));
+				return (MobileElement) _iosDriver.findElementByXPath(selector);
+			}
+			if (selector.startsWith(".")) {
+				_logger.debug(String
+						.format("Found IOS UIAutomator Selector [%s], using findElementByIosUIAutomation.",
+								new Object[] { selector }));
 
-                return (MobileElement) this.iosDriver.findElementByIosUIAutomation(selector);
-            }
-            if (selector.startsWith("$"))
-            {
-                selector = selector.replace("$", "");
-                this.logger.debug(
-                    String.format("Found clas Name selector [%s], using findElement(By.className()).", new Object[]{selector}));
+				return (MobileElement) _iosDriver
+						.findElementByIosUIAutomation(selector);
+			}
+			if (selector.startsWith("$")) {
+				String classNameSelector = selector.replace("$", "");
+				_logger.debug(String
+						.format("Found clas Name selector [%s], using findElement(By.className()).",
+								new Object[] { classNameSelector }));
 
-                return (MobileElement) this.iosDriver.findElement(
-                    By.className(selector));
-            }
-            this.logger.debug(String.format("Found IOS id Selector [%s], using findElementById.", new Object[]{selector}));
+				return (MobileElement) _iosDriver.findElement(By
+						.className(classNameSelector));
+			}
+			_logger.debug(String.format(
+					"Found IOS id Selector [%s], using findElementById.",
+					new Object[] { selector }));
 
-            return (MobileElement) this.iosDriver.findElementById(selector);
-        }
-        if (selector.contains("UiSelector"))
-        {
-            this.logger.debug(
-                String.format("Found UiSelector in locator [%s], using findElementByAndroidUIAutomator.",
-                    new Object[]{selector}));
+			return (MobileElement) _iosDriver.findElementById(selector);
+		}
+		if (selector.contains("UiSelector")) {
+			_logger.debug(String
+					.format("Found UiSelector in locator [%s], using findElementByAndroidUIAutomator.",
+							new Object[] { selector }));
 
-            return (MobileElement) this.androidDriver.findElementByAndroidUIAutomator(selector);
-        }
-        if (selector.contains("//"))
-        {
-            this.logger.debug(
-                String.format("Found Android Xpath Selector [%s], using findElementByXPath.", new Object[]{selector}));
+			return (MobileElement) _androidDriver
+					.findElementByAndroidUIAutomator(selector);
+		}
+		if (selector.contains("//")) {
+			_logger.debug(String
+					.format("Found Android Xpath Selector [%s], using findElementByXPath.",
+							new Object[] { selector }));
 
-            return (MobileElement) this.androidDriver.findElementByXPath(selector);
-        }
-        if (selector.contains("~"))
-        {
-            selector = selector.replace("~", "");
-            this.logger.debug(
-                String.format("Found Android name Selector [%s], using findElementByName.", new Object[]{selector}));
+			return (MobileElement) _androidDriver.findElementByXPath(selector);
+		}
+		if (selector.contains("~")) {
+			String androidNameSelector = selector.replace("~", "");
+			_logger.debug(String
+					.format("Found Android name Selector [%s], using findElementByName.",
+							new Object[] { androidNameSelector }));
 
-            return (MobileElement) this.androidDriver.findElementByName(selector);
-        }
-        this.logger.debug(String.format("Attempted to find locator [%s] ById.", new Object[]{selector}));
+			return (MobileElement) _androidDriver
+					.findElementByName(androidNameSelector);
+		}
+		_logger.debug(String.format("Attempted to find locator [%s] ById.",
+				new Object[] { selector }));
 
-        return (MobileElement) this.androidDriver.findElementById(selector);
-    }
+		return (MobileElement) _androidDriver.findElementById(selector);
+	}
 
-    public List<MobileElement> findElements(String selector)
-    {
-        if (this.env.getIsMobileIOS())
-        {
-            this.logger.debug(
-                String.format("Found IOS UIAutomator Selector [%s], using findElementByIosUIAutomation.",
-                    new Object[]{selector}));
+	public List<MobileElement> findElements(String selector) {
 
-            List<MobileElement> elements = (List) this.iosDriver.findElementByIosUIAutomation(selector);
-            return elements;
-        }
-        if (selector.contains("UiSelector"))
-        {
-            selector = "new UiSelector().resourceId(\"" + selector + "\")";
-        }
-        this.logger.info(
-            String.format("Selector is a Android UiSelector [%s], using findByAndroidUIAutomator.", new Object[]{selector}));
+		if (_env.getIsMobileIOS()) {
+			_logger.debug(String
+					.format("Found IOS UIAutomator Selector [%s], using findElementByIosUIAutomation.",
+							new Object[] { selector }));
 
-        List<MobileElement> elements = (List) this.androidDriver.findElementByAndroidUIAutomator(selector);
-        return elements;
-    }
+			List<MobileElement> elements = (List) _iosDriver
+					.findElementByIosUIAutomation(selector);
+			return elements;
+		}
+		if (selector.contains("UiSelector")) {
+			String uiSelector = "new UiSelector().resourceId(\"" + selector
+					+ "\")";
+			_logger.info(String
+					.format("Selector is a Android UiSelector [%s], using findByAndroidUIAutomator.",
+							new Object[] { uiSelector }));
 
-    public int getAndroidElementCount(String selector)
-    {
-        return getMobileElementCount(selector);
-    }
+			List<MobileElement> elements = (List) _androidDriver
+					.findElementByAndroidUIAutomator(uiSelector);
+			return elements;
+		}
+		return null;
+	}
 
-    public int getMobileElementCount(String selector)
-    {
-        List<WebElement> elements = null;
-        if (this.env.getIsMobileIOS())
-        {
-            if (selector.contains("//"))
-            {
-                this.logger.debug(
-                    String.format("Found IOS Xpath Selector [%s], using findElementsByXPath.", new Object[]{selector}));
+	public int getAndroidElementCount(String selector) {
+		return getMobileElementCount(selector);
+	}
 
-                elements = this.iosDriver.findElementsByXPath(selector);
-            }
-            else if (selector.startsWith("."))
-            {
-                this.logger.debug(
-                    String.format("Found IOS UIAutomator Selector [%s], using findElementsByIosUIAutomation.",
-                        new Object[]{selector}));
+	public int getMobileElementCount(String selector) {
+		List<WebElement> elements = null;
+		if (_env.getIsMobileIOS()) {
+			if (selector.contains("//")) {
+				_logger.debug(String
+						.format("Found IOS Xpath Selector [%s], using findElementsByXPath.",
+								new Object[] { selector }));
 
-                elements = this.iosDriver.findElementsByIosUIAutomation(selector);
-            }
-            else if (selector.startsWith("$"))
-            {
-                selector = selector.replace("$", "");
-                this.logger.debug(
-                    String.format("Found clas Name selector [%s], using findElements(By.className()).", new Object[]{selector}));
+				elements = _iosDriver.findElementsByXPath(selector);
+			} else if (selector.startsWith(".")) {
+				_logger.debug(String
+						.format("Found IOS UIAutomator Selector [%s], using findElementsByIosUIAutomation.",
+								new Object[] { selector }));
 
-                elements = this.iosDriver.findElements(By.className(selector));
-            }
-            else
-            {
-                this.logger.debug(String.format("Found IOS id Selector [%s], using findElementsById.", new Object[]{selector}));
+				elements = _iosDriver.findElementsByIosUIAutomation(selector);
+			} else if (selector.startsWith("$")) {
+				String classNameSelector = selector.replace("$", "");
+				_logger.debug(String
+						.format("Found clas Name selector [%s], using findElements(By.className()).",
+								new Object[] { classNameSelector }));
 
-                elements = this.iosDriver.findElementsById(selector);
-            }
-        }
-        else if (selector.contains("UiSelector"))
-        {
-            this.logger.debug(
-                String.format("Found UiSelector in locator [%s], using findElementsByAndroidUIAutomator.",
-                    new Object[]{selector}));
+				elements = _iosDriver.findElements(By
+						.className(classNameSelector));
+			} else {
+				_logger.debug(String.format(
+						"Found IOS id Selector [%s], using findElementsById.",
+						new Object[] { selector }));
 
-            elements = this.androidDriver.findElementsByAndroidUIAutomator(selector);
-        }
-        else if (selector.contains("//"))
-        {
-            this.logger.debug(
-                String.format("Found Android Xpath Selector [%s], using findElementsByXPath.", new Object[]{selector}));
+				elements = _iosDriver.findElementsById(selector);
+			}
+		} else if (selector.contains("UiSelector")) {
+			_logger.debug(String
+					.format("Found UiSelector in locator [%s], using findElementsByAndroidUIAutomator.",
+							new Object[] { selector }));
 
-            elements = this.androidDriver.findElementsByXPath(selector);
-        }
-        else if (selector.contains("~"))
-        {
-            selector = selector.replace("~", "");
-            this.logger.debug(
-                String.format("Found Android name Selector [%s], using findElementsByName.", new Object[]{selector}));
+			elements = _androidDriver
+					.findElementsByAndroidUIAutomator(selector);
+		} else if (selector.contains("//")) {
+			_logger.debug(String
+					.format("Found Android Xpath Selector [%s], using findElementsByXPath.",
+							new Object[] { selector }));
 
-            elements = this.androidDriver.findElementsByName(selector);
-        }
-        else
-        {
-            this.logger.debug(String.format("Attempted to find locator [%s] ById.", new Object[]{selector}));
+			elements = _androidDriver.findElementsByXPath(selector);
+		} else if (selector.contains("~")) {
+			String nameSelector = selector.replace("~", "");
+			_logger.debug(String
+					.format("Found Android name Selector [%s], using findElementsByName.",
+							new Object[] { nameSelector }));
 
-            elements = this.androidDriver.findElementsById(selector);
-        }
-        return elements.size();
-    }
+			elements = _androidDriver.findElementsByName(nameSelector);
+		} else {
+			_logger.debug(String.format("Attempted to find locator [%s] ById.",
+					new Object[] { selector }));
 
-    public boolean doesElementExist(String selector)
-    {
-        try
-        {
-            if (this.env.getIsMobileIOS())
-            {
-                this.logger.info("Checking to see if the element exists");
-                if (selector.contains("//"))
-                {
-                    this.iosDriver.findElementByXPath(selector);
-                }
-                else
-                {
-                    this.iosDriver.findElementById(selector);
-                }
-                return true;
-            }
-            if (selector.contains("UiSelector"))
-            {
-                this.logger.debug(
-                    String.format("Found UiSelector in locator [%s], using findElementByAndroidUIAutomator.",
-                        new Object[]{selector}));
+			elements = _androidDriver.findElementsById(selector);
+		}
+		return elements.size();
+	}
 
-                this.androidDriver.findElementByAndroidUIAutomator(selector);
-            }
-            else
-            {
-                this.logger.debug(String.format("Attempted to find locator [%s] ById.", new Object[]{selector}));
+	public boolean doesElementExist(String selector) {
+		try {
+			if (_env.getIsMobileIOS()) {
+				_logger.info("Checking to see if the element exists");
+				if (selector.contains("//")) {
+					_iosDriver.findElementByXPath(selector);
+				} else {
+					_iosDriver.findElementById(selector);
+				}
+				return true;
+			}
+			if (selector.contains("UiSelector")) {
+				_logger.debug(String
+						.format("Found UiSelector in locator [%s], using findElementByAndroidUIAutomator.",
+								new Object[] { selector }));
 
-                this.androidDriver.findElementById(selector);
-            }
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
-        return true;
-    }
+				_androidDriver.findElementByAndroidUIAutomator(selector);
+			} else {
+				_logger.debug(String.format(
+						"Attempted to find locator [%s] ById.",
+						new Object[] { selector }));
+
+				_androidDriver.findElementById(selector);
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
 }

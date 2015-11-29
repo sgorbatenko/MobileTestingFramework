@@ -23,7 +23,7 @@ public class Text
 
     public void clickText()
     {
-        this.logger.info(String.format("Clicking Text Element with selector [%s].", new Object[]{this.selector
+        this.logger.info(String.format("Clicking Text Element with selector [%s].", new Object[]{this._selector
             .toString()}));
         this.element.click();
     }

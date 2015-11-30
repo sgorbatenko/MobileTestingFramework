@@ -9,8 +9,7 @@ import org.openqa.selenium.WebElement;
 import com.stas.mobile.testing.framework.UIData;
 import com.stas.mobile.testing.framework.web.AbstractPageChunk;
 
-public class BaseHtmlElement
-                            extends AbstractPageChunk
+public class BaseHtmlElement extends AbstractPageChunk
 {
     public static final String CLASS_ATTRIBUTE = "class";
 
@@ -37,8 +36,8 @@ public class BaseHtmlElement
         }
         catch (StaleElementReferenceException se)
         {
-            this.logger.debug("Stale Element - try grabbing element again.");
-            element = this.queryHelper.findElementByExtendedCss(
+            this._logger.debug("Stale Element - try grabbing element again.");
+            element = this._queryHelper.findElementByExtendedCss(
                 getAbsoluteSelector());
         }
         return Boolean.valueOf(element.isDisplayed());
@@ -52,7 +51,7 @@ public class BaseHtmlElement
 
     public void waitToChangeVisibility(boolean appear)
     {
-        this.syncHelper.waitForElementAppearanceChanged(this, appear);
+        this._syncHelper.waitForElementAppearanceChanged(this, appear);
     }
 
     public void submit()
@@ -75,7 +74,7 @@ public class BaseHtmlElement
 
     public boolean elementHasFocus()
     {
-        WebElement element = getWebElement();
-        return this.queryHelper.doesElementExist(getAbsoluteSelector() + ":focus");
+        // WebElement element = getWebElement();
+        return this._queryHelper.doesElementExist(getAbsoluteSelector() + ":focus");
     }
 }

@@ -52,7 +52,7 @@ public class TestNGListenerUtils
                 }
             }
         }
-        return (String) ids.get(0);
+        return ids.get(0);
     }
 
     public static String getTestTags(ITestResult tr)
@@ -68,7 +68,6 @@ public class TestNGListenerUtils
 
     public static String getCaseTags(ITestResult testResult)
     {
-        List<String> ids = new ArrayList();
         String groupsString = getTestTags(testResult);
         groupsString = groupsString.substring(groupsString.indexOf("(") + 1, groupsString
             .indexOf(")"));

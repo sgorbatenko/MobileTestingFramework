@@ -23,6 +23,7 @@ public class BaseDeviceControl extends AbstractDeviceChunk
         return this.element.getAttribute(name);
     }
 
+    @Override
     public boolean isDisplayed()
     {
         if (this.element == null)

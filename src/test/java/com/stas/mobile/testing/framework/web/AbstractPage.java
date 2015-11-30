@@ -21,18 +21,18 @@ public abstract class AbstractPage
                                   extends AbstractUIData
 {
     public static final String AUT_URL_KEY = "aut.url";
-    private LogController logger = new LogController(AbstractPage.class);
-    protected static WebDriver driver;
-    protected WebElementQueryHelper queryHelper = new WebElementQueryHelper(
+    private LogController _logger = new LogController(AbstractPage.class);
+    protected WebDriver _driver;
+    protected WebElementQueryHelper _queryHelper = new WebElementQueryHelper(
         getDriver());
     protected BaseHtmlElement dataLoadingWindow;
-    protected AjaxHelper syncHelper;
+    protected AjaxHelper _syncHelper;
     protected static SnapshotManager snapshotManager = new SnapshotManager();
 
     protected AbstractPage(WebDriver driver)
     {
-        driver = driver;
-        this.syncHelper = new AjaxHelper(driver);
+        _driver = driver;
+        _syncHelper = new AjaxHelper(driver);
     }
 
     public String getSelector()
@@ -53,7 +53,7 @@ public abstract class AbstractPage
     @Deprecated
     public void scrollUp()
     {
-        this.logger.info("Scrolling to top of page");
+        _logger.info("Scrolling to top of page");
         getDriver().findElement(
             By.tagName("body")).sendKeys(new CharSequence[]{Keys.HOME});
     }
@@ -61,37 +61,37 @@ public abstract class AbstractPage
     @Deprecated
     public void scrollDown()
     {
-        this.logger.info("Scrolling to bottom of page");
+        _logger.info("Scrolling to bottom of page");
         WebDriver driver = getDriver();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0,Math.max(document.documentElement.scrollHeight,document.body.scrollHeight,document.documentElement.clientHeight));",
             new Object[0]);
 
-        this.syncHelper.suspend(100);
+        _syncHelper.suspend(100);
     }
 
     @Deprecated
     public void scrollToElement(String elementPath)
     {
-        this.logger.debug("About to scroll to " + elementPath);
+        _logger.debug("About to scroll to " + elementPath);
         int y = 0;
         try
         {
-            this.syncHelper.waitForElementToAppear(elementPath);
+            _syncHelper.waitForElementToAppear(elementPath);
 
-            Locatable hoverItem = (Locatable) this.queryHelper.findElementByExtendedCss(elementPath);
+            Locatable hoverItem = (Locatable) _queryHelper.findElementByExtendedCss(elementPath);
             y = hoverItem.getCoordinates().onPage().getY();
         }
         catch (StaleElementReferenceException sere)
         {
-            this.logger.warn("Stale Reference Exception was thrown, refreshing page and trying to get coordinates again");
+            _logger.warn("Stale Reference Exception was thrown, refreshing page and trying to get coordinates again");
             getDriver().navigate().refresh();
-            this.syncHelper.waitForElementToAppear(elementPath);
-            Locatable hoverItem = (Locatable) driver.findElement(
+            _syncHelper.waitForElementToAppear(elementPath);
+            Locatable hoverItem = (Locatable) _driver.findElement(
                 By.cssSelector(elementPath));
             y = hoverItem.getCoordinates().onPage().getY();
         }
-        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0," + y + ");", new Object[0]);
+        ((JavascriptExecutor) _driver).executeScript("window.scrollBy(0," + y + ");", new Object[0]);
     }
 
     public void reload()

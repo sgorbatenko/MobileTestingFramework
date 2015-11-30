@@ -8,57 +8,57 @@ import org.apache.http.Header;
 
 public class APIResponse
 {
-    private int responseCode;
-    private String resonseMessgae;
-    private String reponse;
-    private Header[] headers;
+    private int _responseCode;
+    private String _resonseMessgae;
+    private String _reponse;
+    private Header[] _headers;
 
     public int getResponseCode()
     {
-        return this.responseCode;
+        return _responseCode;
     }
 
     public void setResponseCode(int responseCode)
     {
-        this.responseCode = responseCode;
+        _responseCode = responseCode;
     }
 
     public String getResonseMessgae()
     {
-        return this.resonseMessgae;
+        return _resonseMessgae;
     }
 
     public void setResonseMessgae(String resonseMessgae)
     {
-        this.resonseMessgae = resonseMessgae;
+        _resonseMessgae = resonseMessgae;
     }
 
     public String getReponse()
     {
-        return this.reponse;
+        return _reponse;
     }
 
     public void setReponse(String reponse)
     {
-        this.reponse = reponse;
+        _reponse = reponse;
     }
 
     public void setHeaders(Header[] headers)
     {
-        this.headers = headers;
+        _headers = headers;
     }
 
     public Header[] getHeaders()
     {
-        return this.headers;
+        return _headers;
     }
 
     public List<Header> getHeaderByName(String name, boolean ignoreCase)
     {
         List<Header> result = new ArrayList();
-        if (this.headers != null)
+        if (_headers != null)
         {
-            for (Header header : this.headers)
+            for (Header header : _headers)
             {
                 if (ignoreCase)
                 {

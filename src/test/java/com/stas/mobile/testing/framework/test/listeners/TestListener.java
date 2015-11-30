@@ -15,15 +15,15 @@ import com.stas.mobile.testing.framework.util.logger.LogController;
 
 public class TestListener extends TestListenerAdapter
 {
-    private EnvironmentUtil env = EnvironmentUtil.getInstance();
+    private EnvironmentUtil _env = EnvironmentUtil.getInstance();
+
     // private TestRailLogger testRailLogger = new TestRailLogger();
-    private static SnapshotManager snapshotManager = new SnapshotManager();
-    private static TestNGListenerUtils ngListenerUtil = new TestNGListenerUtils();
     private static LogController logger = new LogController(TestListener.class);
 
+    @Override
     public void onFinish(ITestContext context)
     {
-        if (this.env.getLogATOMResults())
+        if (this._env.getLogATOMResults())
         {
             String failed = String.valueOf(context.getFailedTests().size());
             String passed = String.valueOf(context.getPassedTests().size());
@@ -43,18 +43,18 @@ public class TestListener extends TestListenerAdapter
             AtomLogger.logTestRunResultToAtom(WebDriverWrapper.getRunId(),
                 WebDriverWrapper.runDate,
                 result,
-                this.env
+                this._env
                     .getCIJobName(),
                 passed,
                 failed,
                 skipped,
-                this.env
+                this._env
                     .getBuildId(),
-                this.env
+                this._env
                     .getCompanyId(),
                 getProductId(),
                 getDeviceType(),
-                this.env
+                this._env
                     .getBrowser().name(),
                 WebDriverWrapper.os,
                 WebDriverWrapper.osVersion,
@@ -64,24 +64,25 @@ public class TestListener extends TestListenerAdapter
         }
     }
 
+    @Override
     public void onStart(ITestContext arg0)
     {
-        if (this.env.getLogATOMResults())
+        if (this._env.getLogATOMResults())
         {
             AtomLogger.logTestRunResultToAtom(WebDriverWrapper.getRunId(),
                 WebDriverWrapper.runDate,
                 "",
-                this.env
+                this._env
                     .getCIJobName(),
                 "0",
                 "0",
                 "0",
-                this.env
+                this._env
                     .getBuildId(),
-                this.env.getCompanyId(),
+                this._env.getCompanyId(),
                 getProductId(),
                 getDeviceType(),
-                this.env.getBrowser().name(),
+                this._env.getBrowser().name(),
                 WebDriverWrapper.os,
                 WebDriverWrapper.osVersion,
                 WebDriverWrapper.manufacturer,
@@ -90,17 +91,19 @@ public class TestListener extends TestListenerAdapter
         }
     }
 
+    @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult arg0)
     {
     }
 
+    @Override
     public void onTestSkipped(ITestResult testResult)
     {
         ITestNGMethod testNGMethod = testResult.getMethod();
         Method method = testNGMethod.getConstructorOrMethod().getMethod();
         try
         {
-            if (!this.env.getIsMobileTest().booleanValue())
+            if (!this._env.getIsMobileTest().booleanValue())
             {
                 SnapshotManager.takeScreenshot(method.getName(),
                     WebDriverWrapper.getWebDriver());
@@ -120,7 +123,7 @@ public class TestListener extends TestListenerAdapter
         }
         logger.info(String.format("Test Skipped [" +
             TestNGListenerUtils.getCaseDescription(testResult) + "]", new Object[0]));
-        if (this.env.getLogATOMResults())
+        if (this._env.getLogATOMResults())
         {
 //            String url = LogController.flushMethodLogToS3(
 //                WebDriverWrapper.getRunId(), method.getName(), this.env
@@ -137,14 +140,16 @@ public class TestListener extends TestListenerAdapter
         logger.info("=== Completed test " + method.getName() + " ===");
     }
 
+    @Override
     public void onTestStart(ITestResult testResult)
     {
         logger.info("=== Starting test " + testResult.getName() + "===");
     }
 
+    @Override
     public void onTestSuccess(ITestResult testResult)
     {
-        if (this.env.getLogResults().booleanValue())
+        if (this._env.getLogResults().booleanValue())
         {
 //            this.testRailLogger.logResult(this.env.getTestRunId(),
 //                TestNGListenerUtils.getCaseDescription(testResult), 1);
@@ -153,7 +158,7 @@ public class TestListener extends TestListenerAdapter
         Method method = testNGMethod.getConstructorOrMethod().getMethod();
         try
         {
-            if (!this.env.getIsMobileTest().booleanValue())
+            if (!this._env.getIsMobileTest().booleanValue())
             {
                 SnapshotManager.takeScreenshot(method.getName(),
                     WebDriverWrapper.getWebDriver());
@@ -174,7 +179,7 @@ public class TestListener extends TestListenerAdapter
         }
         logger.info(String.format("Test Passed [" +
             TestNGListenerUtils.getCaseDescription(testResult) + "]", new Object[0]));
-        if (this.env.getLogATOMResults())
+        if (this._env.getLogATOMResults())
         {
 //            String url = LogController.flushMethodLogToS3(
 //                WebDriverWrapper.getRunId(), method.getName(), this.env
@@ -191,9 +196,10 @@ public class TestListener extends TestListenerAdapter
         logger.info("=== Completed test " + method.getName() + " ===");
     }
 
+    @Override
     public void onTestFailure(ITestResult testResult)
     {
-        if (this.env.getLogResults().booleanValue())
+        if (this._env.getLogResults().booleanValue())
         {
 //            this.testRailLogger.logResult(this.env.getTestRunId(),
 //                TestNGListenerUtils.getCaseDescription(testResult), 5);
@@ -202,7 +208,7 @@ public class TestListener extends TestListenerAdapter
         Method method = testNGMethod.getConstructorOrMethod().getMethod();
         try
         {
-            if (!this.env.getIsMobileTest().booleanValue())
+            if (!this._env.getIsMobileTest().booleanValue())
             {
                 SnapshotManager.takeScreenshot(method.getName(),
                     WebDriverWrapper.getWebDriver());
@@ -222,8 +228,8 @@ public class TestListener extends TestListenerAdapter
         }
         logger.info("Test Result : Fail [" +
             TestNGListenerUtils.getCaseDescription(testResult) + "]");
-        this.env.setFailedTestDoReset(true);
-        if (this.env.getLogATOMResults())
+        this._env.setFailedTestDoReset(true);
+        if (this._env.getLogATOMResults())
         {
 //            String url = LogController.flushMethodLogToS3(
 //                WebDriverWrapper.getRunId(), method.getName(), this.env
@@ -250,14 +256,14 @@ public class TestListener extends TestListenerAdapter
             executionTime,
             WebDriverWrapper.runDate,
             result,
-            this.env
+            this._env
 
                 .getBuildId(),
-            this.env
+            this._env
                 .getCompanyId(),
             getProductId(),
             getDeviceType(),
-            this.env
+            this._env
                 .getBrowser().name(),
             WebDriverWrapper.os,
             WebDriverWrapper.osVersion,
@@ -268,11 +274,11 @@ public class TestListener extends TestListenerAdapter
     private String getDeviceType()
     {
         String deviceType = "";
-        if (this.env.getIsMobileIOS())
+        if (this._env.getIsMobileIOS())
         {
             deviceType = "mobile and tablet";
         }
-        if (this.env.getIsMobileAndroid())
+        if (this._env.getIsMobileAndroid())
         {
             deviceType = "mobile and tablet";
         }
@@ -286,17 +292,17 @@ public class TestListener extends TestListenerAdapter
     private String getProductId()
     {
         String productId = "";
-        if (this.env.getIsMobileIOS())
+        if (this._env.getIsMobileIOS())
         {
-            productId = this.env.getProductIOSId();
+            productId = this._env.getProductIOSId();
         }
-        if (this.env.getIsMobileAndroid())
+        if (this._env.getIsMobileAndroid())
         {
-            productId = this.env.getProductAndroidId();
+            productId = this._env.getProductAndroidId();
         }
         else
         {
-            productId = this.env.getProductWebId();
+            productId = this._env.getProductWebId();
         }
         return productId;
     }

@@ -22,20 +22,20 @@ import com.stas.mobile.testing.framework.util.logger.LogController;
 
 public class SynchronizationHelper
 {
-    private DeviceElementQueryHelper queryHelper;
-    private AppiumDriver driver;
-    private LogController logger = new LogController(SynchronizationHelper.class);
-    private EnvironmentUtil envUtil = EnvironmentUtil.getInstance();
+    private DeviceElementQueryHelper _queryHelper;
+    private AppiumDriver _driver;
+    private LogController _logger = new LogController(SynchronizationHelper.class);
+    private EnvironmentUtil _envUtil = EnvironmentUtil.getInstance();
 
     public SynchronizationHelper(AppiumDriver driver)
     {
-        this.queryHelper = new DeviceElementQueryHelper(driver);
-        this.driver = driver;
+        _queryHelper = new DeviceElementQueryHelper(driver);
+        _driver = driver;
     }
 
     public int getElementCount(String selector)
     {
-        List<MobileElement> elements = this.queryHelper.findElements(selector);
+        List<MobileElement> elements = _queryHelper.findElements(selector);
         return elements.size();
     }
 
@@ -49,13 +49,13 @@ public class SynchronizationHelper
         {
             try
             {
-                element = this.queryHelper.findElement(selector);
+                element = _queryHelper.findElement(selector);
                 if (element == null)
                 {
                     suspend(2000);
-                    this.logger.info("Waiting for " + selector + " to appear");
+                    _logger.info("Waiting for " + selector + " to appear");
                 }
-                else if (element != null)
+                else
                 {
                     break;
                 }
@@ -64,7 +64,7 @@ public class SynchronizationHelper
             {
                 if (nseLogMessage)
                 {
-                    this.logger.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
+                    _logger.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
 
                     nseLogMessage = false;
                 }
@@ -87,7 +87,7 @@ public class SynchronizationHelper
         {
             try
             {
-                element1 = this.queryHelper.findElement(selector1);
+                element1 = _queryHelper.findElement(selector1);
                 if (element1 != null)
                 {
                     return selector1;
@@ -98,7 +98,7 @@ public class SynchronizationHelper
             }
             try
             {
-                element2 = this.queryHelper.findElement(selector2);
+                element2 = _queryHelper.findElement(selector2);
                 if (element2 != null)
                 {
                     return selector2;
@@ -110,7 +110,7 @@ public class SynchronizationHelper
             if (nseLogMessage)
             {
                 suspend(500);
-                this.logger.debug("Element [" + selector1 + " or " + selector2 + "] wasn't located, waiting and rerunning loop");
+                _logger.debug("Element [" + selector1 + " or " + selector2 + "] wasn't located, waiting and rerunning loop");
 
                 nseLogMessage = false;
             }
@@ -155,11 +155,11 @@ public class SynchronizationHelper
             {
                 try
                 {
-                    element = this.queryHelper.findElement(selector);
+                    element = _queryHelper.findElement(selector);
                     if ((element != null) && (element.isDisplayed()))
                     {
                         suspend(2000);
-                        this.logger.info("Waiting for " + selector + " to disappear");
+                        _logger.info("Waiting for " + selector + " to disappear");
                     }
                     else if ((element != null) && (element.isDisplayed()))
                     {
@@ -168,7 +168,7 @@ public class SynchronizationHelper
                 }
                 catch (NoSuchElementException nse)
                 {
-                    this.logger.debug("Element [" + selector + "] wasn't located");
+                    _logger.debug("Element [" + selector + "] wasn't located");
                 }
             }
         }
@@ -176,7 +176,7 @@ public class SynchronizationHelper
 
     public void waitForTextToAppear(final MobileElement element, final String text)
     {
-        WebDriverWait wait = new WebDriverWait(this.driver, 30000L);
+        WebDriverWait wait = new WebDriverWait(_driver, 30000L);
         boolean result;
         try
         {
@@ -208,7 +208,7 @@ public class SynchronizationHelper
 
     public void waitForTextToDisappear(final MobileElement element, final String text)
     {
-        WebDriverWait wait = new WebDriverWait(this.driver, 30000L);
+        WebDriverWait wait = new WebDriverWait(_driver, 30000L);
         boolean result;
         try
         {
@@ -234,7 +234,7 @@ public class SynchronizationHelper
 
     public void suspend(int millis)
     {
-        this.logger.debug("Suspending thread " + millis + "ms.");
+        _logger.debug("Suspending thread " + millis + "ms.");
         try
         {
             Thread.sleep(millis);
@@ -259,13 +259,13 @@ public class SynchronizationHelper
         {
             try
             {
-                element = this.queryHelper.findElement(selector);
+                element = _queryHelper.findElement(selector);
                 if (element == null)
                 {
                     suspend(500);
-                    this.logger.info("Waiting for " + selector + " to appear");
+                    _logger.info("Waiting for " + selector + " to appear");
                 }
-                else if (element != null)
+                else
                 {
                     break;
                 }
@@ -274,7 +274,7 @@ public class SynchronizationHelper
             {
                 if (nseLogMessage)
                 {
-                    this.logger.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
+                    _logger.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
 
                     nseLogMessage = false;
                 }

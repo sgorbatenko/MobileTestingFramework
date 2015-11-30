@@ -21,38 +21,38 @@ import com.stas.mobile.testing.framework.util.logger.LogController;
 public abstract class AbstractPageChunk extends AbstractUIData
 {
     public static final int DEFAULT_TIMEOUT = 60;
-    protected static UIData parent;
-    protected String selector;
-    protected WebElementQueryHelper queryHelper;
-    protected AjaxHelper syncHelper;
-    protected LogController logger = new LogController(AbstractPageChunk.class);
+    protected static UIData Parent;
+    protected String _selector;
+    protected WebElementQueryHelper _queryHelper;
+    protected AjaxHelper _syncHelper;
+    protected LogController _logger = new LogController(AbstractPageChunk.class);
 
-    public AbstractPageChunk(UIData parent, String selector)
+    public AbstractPageChunk(UIData parentUI, String selector)
     {
-        parent = parent;
-        this.selector = selector;
-        this.logger.debug("Selector = " + selector);
+        Parent = parentUI;
+        this._selector = selector;
+        this._logger.debug("Selector = " + selector);
         WebDriver driver = WebDriverWrapper.getWebDriver();
-        this.queryHelper = new WebElementQueryHelper(driver);
-        this.syncHelper = new AjaxHelper(driver);
-        parent.addChild(this);
+        this._queryHelper = new WebElementQueryHelper(driver);
+        this._syncHelper = new AjaxHelper(driver);
+        Parent.addChild(this);
     }
 
     public WebElement getWebElement()
     {
-        this.logger.debug("getWebElement(): " + getAbsoluteSelector());
+        this._logger.debug("getWebElement(): " + getAbsoluteSelector());
         final AbstractPageChunk that = this;
         WebDriverWait wait = new WebDriverWait(getDriver(), 60L);
-        Function<WebDriver, WebElement> function = new Function()
+        Function<WebDriver, WebElement> function = new Function<WebDriver, WebElement>()
         {
-            public Object apply(Object input)
+            public WebElement apply(WebDriver input)
             {
-                return (WebElement) AbstractPageChunk.this.getWebElementImmediately(that);
+                return getWebElementImmediately(that);
             }
         };
         try
         {
-            return (WebElement) wait.until(function);
+            return wait.until(function);
         }
         catch (TimeoutException e)
         {
@@ -68,12 +68,12 @@ public abstract class AbstractPageChunk extends AbstractUIData
 
     public WebElement getVisibleWebElement(int defaultTimeout)
     {
-        this.logger.debug("Getting visible element: " + getAbsoluteSelector());
+        this._logger.debug("Getting visible element: " + getAbsoluteSelector());
         WebDriverWait wait = new WebDriverWait(getDriver(), defaultTimeout);
         final AbstractPageChunk that = this;
-        Function<WebDriver, WebElement> isVisible = new Function()
+        Function<WebDriver, WebElement> isVisible = new Function<WebDriver, WebElement>()
         {
-            public Object apply(Object input)
+            public WebElement apply(WebDriver input)
             {
                 WebElement webElement = AbstractPageChunk.this.getWebElementImmediately(that);
                 if ((webElement != null) && (webElement.isDisplayed()))
@@ -85,9 +85,9 @@ public abstract class AbstractPageChunk extends AbstractUIData
         };
         try
         {
-            this.logger.debug("In getVisibleWebElement and absolute selector = " +
+            this._logger.debug("In getVisibleWebElement and absolute selector = " +
                 getAbsoluteSelector());
-            return (WebElement) wait.until(isVisible);
+            return wait.until(isVisible);
         }
         catch (TimeoutException e)
         {
@@ -107,7 +107,7 @@ public abstract class AbstractPageChunk extends AbstractUIData
         }
         catch (NoSuchElementException e)
         {
-            this.logger.debug("NoSuchElementException returned.");
+            this._logger.debug("NoSuchElementException returned.");
         }
         return false;
     }
@@ -119,7 +119,7 @@ public abstract class AbstractPageChunk extends AbstractUIData
 
     public String getSelector()
     {
-        return this.selector;
+        return this._selector;
     }
 
     public WebDriver getDriver()
@@ -129,27 +129,28 @@ public abstract class AbstractPageChunk extends AbstractUIData
 
     public UIData getParent()
     {
-        return parent;
+        return Parent;
     }
 
     public void setSelector(String newBaseSelector)
     {
-        this.selector = newBaseSelector;
+        this._selector = newBaseSelector;
     }
 
     public AbstractPage getBaseParent()
     {
-        UIData parent = getParent();
+        UIData tempParent = getParent();
         for (;;)
         {
-            if (parent.getParent() == null)
+            if (tempParent.getParent() == null)
             {
-                return (AbstractPage) parent;
+                return (AbstractPage) tempParent;
             }
-            parent = parent.getParent();
+            tempParent = tempParent.getParent();
         }
     }
 
+    @Override
     public String toString()
     {
         return "Selector: " + getSelector();
@@ -157,14 +158,14 @@ public abstract class AbstractPageChunk extends AbstractUIData
 
     public void focus()
     {
-        this.logger.debug("Focusing on element: " + getAbsoluteSelector());
+        this._logger.debug("Focusing on element: " + getAbsoluteSelector());
         ((JavascriptExecutor) getDriver()).executeScript("jQuery('" +
             getAbsoluteSelector().trim() + "').focus()", new Object[0]);
     }
 
     public void hover()
     {
-        this.logger.debug("Hovering on element: " + getAbsoluteSelector());
+        this._logger.debug("Hovering on element: " + getAbsoluteSelector());
         Actions builder = new Actions(getDriver());
         builder.moveToElement(getWebElement()).perform();
     }
@@ -172,14 +173,14 @@ public abstract class AbstractPageChunk extends AbstractUIData
     public void click()
     {
         WebElement element = getVisibleWebElement(60);
-        this.syncHelper.suspend(100);
+        this._syncHelper.suspend(100);
         try
         {
             element.click();
         }
         catch (StaleElementReferenceException e)
         {
-            this.logger.info("StateElementReferenceException thrown, attempting to reattach");
+            this._logger.info("StateElementReferenceException thrown, attempting to reattach");
 
             getVisibleWebElement(60).click();
         }
@@ -187,6 +188,6 @@ public abstract class AbstractPageChunk extends AbstractUIData
 
     private WebElement getWebElementImmediately(AbstractPageChunk chunk)
     {
-        return this.queryHelper.findElement(chunk);
+        return this._queryHelper.findElement(chunk);
     }
 }

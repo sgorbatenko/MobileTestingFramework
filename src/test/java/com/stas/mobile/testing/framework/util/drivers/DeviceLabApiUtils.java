@@ -103,7 +103,7 @@ public class DeviceLabApiUtils
         com.google.api.client.http.HttpResponse response = request.execute();
         logger.debug("response:" + response.parseAsString());
 
-        AppiumResponse appiumResponse = (AppiumResponse) request.execute().parseAs(AppiumResponse.class);
+        AppiumResponse appiumResponse = request.execute().parseAs(AppiumResponse.class);
 
         logger.debug("File id:" + appiumResponse.uploadStatus.fileInfo.file);
 

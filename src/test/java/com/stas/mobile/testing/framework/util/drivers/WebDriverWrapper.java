@@ -62,7 +62,6 @@ public class WebDriverWrapper
     public static String runDate = null;
     public static String buildId = "";
     public static String runId;
-    private static final String ApplauseNamespace = "applause_";
 
     public static WebDriver getWebDriver()
     {
@@ -138,7 +137,7 @@ public class WebDriverWrapper
     {
         if (!env.getIsMobileIOS())
         {
-            return (AndroidDriver) appiumDriver;
+            return appiumDriver;
         }
         try
         {
@@ -151,7 +150,7 @@ public class WebDriverWrapper
         logger.debug("Returning current driver object." + appiumDriver
             .getCapabilities());
 
-        return (IOSDriver) appiumDriver;
+        return appiumDriver;
     }
 
     public static AppiumDriver getAppiumDriver(Browser browser)
@@ -595,13 +594,14 @@ public class WebDriverWrapper
                 os = "ANDROID";
                 osVersion = "4.0.4";
                 manufacturer = "LG";
+            default:
+                break;
         }
         return appiumDriver;
     }
 
     public static WebDriver getWebDriver(Browser browser)
     {
-        EnvironmentUtil util = EnvironmentUtil.getInstance();
         switch (browser)
         {
             case FIREFOX:
@@ -894,11 +894,13 @@ public class WebDriverWrapper
                 break;
             case TD_IPAD_SAFARI_WEB:
                 getTestDroidIPadSafariWeb();
+            default:
+                break;
         }
         return driver;
     }
 
-    public static void getBrowserStackBrowser(String browser, String version, String os, String osVersion)
+    public static void getBrowserStackBrowser(String browser, String version, String os1, String osVersion1)
     {
         String URL = "http://" + env.getBrowserStackUserName()
             + ":"
@@ -907,8 +909,8 @@ public class WebDriverWrapper
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("browser", browser);
         caps.setCapability("browser_version", version);
-        caps.setCapability("os", os);
-        caps.setCapability("os_version", osVersion);
+        caps.setCapability("os", os1);
+        caps.setCapability("os_version", osVersion1);
         caps.setCapability("acceptSslCerts", true);
         caps.setCapability("name", getRunId());
         if (env.turnOnDebug().booleanValue())
@@ -935,7 +937,7 @@ public class WebDriverWrapper
         driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
     }
 
-    public static void getBrowserStackBrowser(String browser, String version, String os, String osVersion, String resolution)
+    public static void getBrowserStackBrowser(String browser, String version, String os1, String osVersion1, String resolution)
     {
         String URL = "http://" + env.getBrowserStackUserName()
             + ":"
@@ -944,8 +946,8 @@ public class WebDriverWrapper
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("browser", browser);
         caps.setCapability("browser_version", version);
-        caps.setCapability("os", os);
-        caps.setCapability("os_version", osVersion);
+        caps.setCapability("os", os1);
+        caps.setCapability("os_version", osVersion1);
         caps.setCapability("browserstack.debug", "true");
         caps.setCapability("resolution", resolution);
         caps.setCapability("name", getRunId());
@@ -1830,7 +1832,7 @@ public class WebDriverWrapper
         }
     }
 
-    private static void getRemoteFakeDevice(String userAgent, int width, int height)
+    private static void getRemoteFakeDevice(String userAgent1, int width, int height)
     {
         try
         {
@@ -1838,7 +1840,7 @@ public class WebDriverWrapper
             dc.setCapability("takesScreenshot", true);
 
             FirefoxProfile profile = new FirefoxProfile();
-            profile.setPreference("general.useragent.override", userAgent);
+            profile.setPreference("general.useragent.override", userAgent1);
             dc.setCapability("firefox_profile", profile);
 
             driver = new ScreenShotRemoteWebDriver(new URL(env.getWebDriverGridURL()), dc);
@@ -1846,8 +1848,14 @@ public class WebDriverWrapper
 
             driver.manage().window().setSize(windowSize);
 
-            userAgent = (String) ((JavascriptExecutor) driver).executeScript("return navigator.userAgent;", new Object[0]);
-            logger.info("Remote Fake Device with " + width + "x" + height + " Initialized with user agent [" + userAgent + "]");
+            String returnedUserAgent = (String) ((JavascriptExecutor) driver).executeScript("return navigator.userAgent;",
+                new Object[0]);
+            logger.info("Remote Fake Device with " + width
+                + "x"
+                + height
+                + " Initialized with user agent ["
+                + returnedUserAgent
+                + "]");
         }
         catch (MalformedURLException e)
         {
@@ -1856,10 +1864,10 @@ public class WebDriverWrapper
         }
     }
 
-    private static void getLocalFakeDevice(String userAgent, int width, int height)
+    private static void getLocalFakeDevice(String userAgent1, int width, int height)
     {
         FirefoxProfile profile = new FirefoxProfile();
-        profile.setPreference("general.useragent.override", userAgent);
+        profile.setPreference("general.useragent.override", userAgent1);
         driver = new FirefoxDriver(profile);
 
         Dimension windowSize = new Dimension(width, height);
@@ -2454,11 +2462,11 @@ public class WebDriverWrapper
         appiumDriver.quit();
     }
 
-    public static void closeBrowser(WebDriver driver)
+    public static void closeBrowser(WebDriver wd)
     {
         try
         {
-            driver.quit();
+            wd.quit();
         }
         catch (Exception e)
         {
@@ -2493,7 +2501,7 @@ public class WebDriverWrapper
         HttpResponse response = request.execute();
         System.out.println("response:" + response.parseAsString());
 
-        AppiumResponse appiumResponse = (AppiumResponse) request.execute().parseAs(AppiumResponse.class);
+        AppiumResponse appiumResponse = request.execute().parseAs(AppiumResponse.class);
 
         System.out.println("File id:" + appiumResponse.uploadStatus.fileInfo.file);
 

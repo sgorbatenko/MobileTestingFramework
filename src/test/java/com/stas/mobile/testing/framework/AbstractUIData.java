@@ -17,16 +17,19 @@ public abstract class AbstractUIData
     private WebElementQueryHelper queryHelper;
     protected HashSet<UIData> children = new HashSet();
 
+    @Override
     public HashSet<UIData> getChildren()
     {
         return this.children;
     }
 
+    @Override
     public void addChild(UIData child)
     {
         this.children.add(child);
     }
 
+    @Override
     public String getAbsoluteSelector()
     {
         return doGetAbsoluteSelector(this);

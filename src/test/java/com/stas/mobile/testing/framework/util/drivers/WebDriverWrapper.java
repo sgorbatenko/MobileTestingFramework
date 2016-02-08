@@ -1,10 +1,6 @@
 
 package com.stas.mobile.testing.framework.util.drivers;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,7 +28,6 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -44,6 +39,10 @@ import com.stas.mobile.testing.framework.util.environment.Browser;
 import com.stas.mobile.testing.framework.util.environment.EnvironmentUtil;
 import com.stas.mobile.testing.framework.util.logger.LogController;
 import com.testdroid.api.http.MultipartFormDataContent;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 
 public class WebDriverWrapper
 {
@@ -641,25 +640,29 @@ public class WebDriverWrapper
                 getRemoteSafariBrowser();
                 break;
             case REMOTE_SIMULATED_IPAD:
-                getRemoteFakeDevice("Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3",
+                getRemoteFakeDevice(
+                    "Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3",
                     2048,
                     1496);
 
                 break;
             case LOCAL_SIMULATED_IPAD_THREE:
-                getLocalFakeDevice("Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3",
+                getLocalFakeDevice(
+                    "Mozilla/5.0 (iPad; CPU OS 5_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B176 Safari/7534.48.3",
                     2048,
                     1496);
 
                 break;
             case REMOTE_SIMULATED_NEXUS_SEVEN:
-                getRemoteFakeDevice("Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166  Safari/535.19",
+                getRemoteFakeDevice(
+                    "Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166  Safari/535.19",
                     966,
                     444);
 
                 break;
             case LOCAL_SIMULATED_NEXUS_SEVEN:
-                getLocalFakeDevice("Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166  Safari/535.19",
+                getLocalFakeDevice(
+                    "Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166  Safari/535.19",
                     966,
                     444);
 
@@ -2480,13 +2483,9 @@ public class WebDriverWrapper
         final HttpHeaders headers = new HttpHeaders().setBasicAuthentication(env
             .getTestDroidUserName(), env.getTestDroidPassword());
 
-        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer()
-        {
-            public void initialize(HttpRequest request)
-            {
-                request.setParser(new JsonObjectParser(WebDriverWrapper.JSON_FACTORY));
-                request.setHeaders(headers);
-            }
+        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(request -> {
+            request.setParser(new JsonObjectParser(WebDriverWrapper.JSON_FACTORY));
+            request.setHeaders(headers);
         });
         MultipartFormDataContent multipartContent = new MultipartFormDataContent();
         FileContent fileContent = new FileContent("application/octet-stream", new File(filePath));

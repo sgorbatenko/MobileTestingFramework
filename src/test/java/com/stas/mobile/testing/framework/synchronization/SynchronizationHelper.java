@@ -1,13 +1,9 @@
 
 package com.stas.mobile.testing.framework.synchronization;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-
 import java.util.List;
 
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,6 +15,9 @@ import com.stas.mobile.testing.framework.queryhelpers.DeviceElementQueryHelper;
 import com.stas.mobile.testing.framework.util.TestHelper;
 import com.stas.mobile.testing.framework.util.environment.EnvironmentUtil;
 import com.stas.mobile.testing.framework.util.logger.LogController;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 
 public class SynchronizationHelper
 {
@@ -180,20 +179,8 @@ public class SynchronizationHelper
         boolean result;
         try
         {
-            wait.until(new ExpectedCondition()
-            {
-                public Boolean apply(WebDriver dr)
-                {
-                    return Boolean.valueOf((element.isDisplayed()) &&
-                        (element.getText().contains(text)));
-                }
-
-                public Object apply(Object input)
-                {
-                    // TODO Auto-generated method stub
-                    return null;
-                }
-            });
+            wait.until((ExpectedCondition) dr -> Boolean.valueOf((element.isDisplayed()) &&
+                (element.getText().contains(text))));
             result = true;
         }
         catch (Exception e)
@@ -212,14 +199,8 @@ public class SynchronizationHelper
         boolean result;
         try
         {
-            wait.until(ExpectedConditions.not(new ExpectedCondition<Boolean>()
-            {
-                public Boolean apply(WebDriver dr)
-                {
-                    return Boolean.valueOf((element.isDisplayed()) &&
-                        (element.getText().contains(text)));
-                }
-            }));
+            wait.until(ExpectedConditions.not(dr -> Boolean.valueOf((element.isDisplayed()) &&
+                (element.getText().contains(text)))));
             result = true;
         }
         catch (Exception e)

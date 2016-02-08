@@ -16,7 +16,6 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -82,13 +81,9 @@ public class DeviceLabApiUtils
     {
         final HttpHeaders headers = new HttpHeaders().setBasicAuthentication("brock@applausemail.com", "@pplause1");
 
-        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(new HttpRequestInitializer()
-        {
-            public void initialize(HttpRequest request)
-            {
-                request.setParser(new JsonObjectParser(DeviceLabApiUtils.JSON_FACTORY));
-                request.setHeaders(headers);
-            }
+        HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(request -> {
+            request.setParser(new JsonObjectParser(DeviceLabApiUtils.JSON_FACTORY));
+            request.setHeaders(headers);
         });
         MultipartFormDataContent multipartContent = new MultipartFormDataContent();
         FileContent fileContent = new FileContent("application/octet-stream", new File(filePath));

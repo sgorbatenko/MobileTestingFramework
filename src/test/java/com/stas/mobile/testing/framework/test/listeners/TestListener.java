@@ -30,8 +30,8 @@ public class TestListener extends TestListenerAdapter
             String skipped = String.valueOf(context.getSkippedTests().size());
 
             String url = "";
-//            LogController.flushRunLogToS3(
-//                WebDriverWrapper.getRunId(), this.env.getCustomerS3BucketName());
+            // LogController.flushRunLogToS3(
+            // WebDriverWrapper.getRunId(), this.env.getCustomerS3BucketName());
             String result = "pass";
             if ((context.getFailedTests().size() > 0) ||
                 (context.getSkippedTests().size() > 0))
@@ -122,12 +122,13 @@ public class TestListener extends TestListenerAdapter
             WebDriverWrapper.getNewWebDriver();
         }
         logger.info(String.format("Test Skipped [" +
-            TestNGListenerUtils.getCaseDescription(testResult) + "]", new Object[0]));
+            TestNGListenerUtils.getCaseDescription(testResult)
+            + "]", new Object[0]));
         if (this._env.getLogATOMResults())
         {
-//            String url = LogController.flushMethodLogToS3(
-//                WebDriverWrapper.getRunId(), method.getName(), this.env
-//                    .getCustomerS3BucketName());
+            // String url = LogController.flushMethodLogToS3(
+            // WebDriverWrapper.getRunId(), method.getName(), this.env
+            // .getCustomerS3BucketName());
 
             String testTags = TestNGListenerUtils.getCaseTags(testResult);
 
@@ -151,8 +152,8 @@ public class TestListener extends TestListenerAdapter
     {
         if (this._env.getLogResults().booleanValue())
         {
-//            this.testRailLogger.logResult(this.env.getTestRunId(),
-//                TestNGListenerUtils.getCaseDescription(testResult), 1);
+            // this.testRailLogger.logResult(this.env.getTestRunId(),
+            // TestNGListenerUtils.getCaseDescription(testResult), 1);
         }
         ITestNGMethod testNGMethod = testResult.getMethod();
         Method method = testNGMethod.getConstructorOrMethod().getMethod();
@@ -178,12 +179,13 @@ public class TestListener extends TestListenerAdapter
             WebDriverWrapper.getNewWebDriver();
         }
         logger.info(String.format("Test Passed [" +
-            TestNGListenerUtils.getCaseDescription(testResult) + "]", new Object[0]));
+            TestNGListenerUtils.getCaseDescription(testResult)
+            + "]", new Object[0]));
         if (this._env.getLogATOMResults())
         {
-//            String url = LogController.flushMethodLogToS3(
-//                WebDriverWrapper.getRunId(), method.getName(), this.env
-//                    .getCustomerS3BucketName());
+            // String url = LogController.flushMethodLogToS3(
+            // WebDriverWrapper.getRunId(), method.getName(), this.env
+            // .getCustomerS3BucketName());
 
             String testTags = TestNGListenerUtils.getCaseTags(testResult);
 
@@ -201,8 +203,8 @@ public class TestListener extends TestListenerAdapter
     {
         if (this._env.getLogResults().booleanValue())
         {
-//            this.testRailLogger.logResult(this.env.getTestRunId(),
-//                TestNGListenerUtils.getCaseDescription(testResult), 5);
+            // this.testRailLogger.logResult(this.env.getTestRunId(),
+            // TestNGListenerUtils.getCaseDescription(testResult), 5);
         }
         ITestNGMethod testNGMethod = testResult.getMethod();
         Method method = testNGMethod.getConstructorOrMethod().getMethod();
@@ -227,13 +229,14 @@ public class TestListener extends TestListenerAdapter
             WebDriverWrapper.getNewWebDriver();
         }
         logger.info("Test Result : Fail [" +
-            TestNGListenerUtils.getCaseDescription(testResult) + "]");
+            TestNGListenerUtils.getCaseDescription(testResult)
+            + "]");
         this._env.setFailedTestDoReset(true);
         if (this._env.getLogATOMResults())
         {
-//            String url = LogController.flushMethodLogToS3(
-//                WebDriverWrapper.getRunId(), method.getName(), this.env
-//                    .getCustomerS3BucketName());
+            // String url = LogController.flushMethodLogToS3(
+            // WebDriverWrapper.getRunId(), method.getName(), this.env
+            // .getCustomerS3BucketName());
 
             String testTags = TestNGListenerUtils.getCaseTags(testResult);
 

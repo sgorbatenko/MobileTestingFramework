@@ -43,13 +43,7 @@ public abstract class AbstractPageChunk extends AbstractUIData
         this._logger.debug("getWebElement(): " + getAbsoluteSelector());
         final AbstractPageChunk that = this;
         WebDriverWait wait = new WebDriverWait(getDriver(), 60L);
-        Function<WebDriver, WebElement> function = new Function<WebDriver, WebElement>()
-        {
-            public WebElement apply(WebDriver input)
-            {
-                return getWebElementImmediately(that);
-            }
-        };
+        Function<WebDriver, WebElement> function = input -> getWebElementImmediately(that);
         try
         {
             return wait.until(function);
@@ -71,17 +65,13 @@ public abstract class AbstractPageChunk extends AbstractUIData
         this._logger.debug("Getting visible element: " + getAbsoluteSelector());
         WebDriverWait wait = new WebDriverWait(getDriver(), defaultTimeout);
         final AbstractPageChunk that = this;
-        Function<WebDriver, WebElement> isVisible = new Function<WebDriver, WebElement>()
-        {
-            public WebElement apply(WebDriver input)
+        Function<WebDriver, WebElement> isVisible = input -> {
+            WebElement webElement = AbstractPageChunk.this.getWebElementImmediately(that);
+            if ((webElement != null) && (webElement.isDisplayed()))
             {
-                WebElement webElement = AbstractPageChunk.this.getWebElementImmediately(that);
-                if ((webElement != null) && (webElement.isDisplayed()))
-                {
-                    return webElement;
-                }
-                return null;
+                return webElement;
             }
+            return null;
         };
         try
         {
@@ -117,16 +107,19 @@ public abstract class AbstractPageChunk extends AbstractUIData
         return getWebElementImmediately(this).isDisplayed();
     }
 
+    @Override
     public String getSelector()
     {
         return this._selector;
     }
 
+    @Override
     public WebDriver getDriver()
     {
         return WebDriverWrapper.getWebDriver();
     }
 
+    @Override
     public UIData getParent()
     {
         return Parent;
@@ -160,7 +153,8 @@ public abstract class AbstractPageChunk extends AbstractUIData
     {
         this._logger.debug("Focusing on element: " + getAbsoluteSelector());
         ((JavascriptExecutor) getDriver()).executeScript("jQuery('" +
-            getAbsoluteSelector().trim() + "').focus()", new Object[0]);
+            getAbsoluteSelector().trim()
+            + "').focus()", new Object[0]);
     }
 
     public void hover()

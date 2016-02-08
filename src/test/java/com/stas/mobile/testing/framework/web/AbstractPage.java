@@ -17,8 +17,7 @@ import com.stas.mobile.testing.framework.util.drivers.WebDriverWrapper;
 import com.stas.mobile.testing.framework.util.logger.LogController;
 import com.stas.mobile.testing.framework.web.controls.BaseHtmlElement;
 
-public abstract class AbstractPage
-                                  extends AbstractUIData
+public abstract class AbstractPage extends AbstractUIData
 {
     public static final String AUT_URL_KEY = "aut.url";
     private LogController _logger = new LogController(AbstractPage.class);
@@ -35,16 +34,19 @@ public abstract class AbstractPage
         _syncHelper = new AjaxHelper(driver);
     }
 
+    @Override
     public String getSelector()
     {
         return null;
     }
 
+    @Override
     public UIData getParent()
     {
         return null;
     }
 
+    @Override
     public WebDriver getDriver()
     {
         return WebDriverWrapper.getWebDriver();
@@ -64,7 +66,8 @@ public abstract class AbstractPage
         _logger.info("Scrolling to bottom of page");
         WebDriver driver = getDriver();
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollTo(0,Math.max(document.documentElement.scrollHeight,document.body.scrollHeight,document.documentElement.clientHeight));",
+        js.executeScript(
+            "window.scrollTo(0,Math.max(document.documentElement.scrollHeight,document.body.scrollHeight,document.documentElement.clientHeight));",
             new Object[0]);
 
         _syncHelper.suspend(100);

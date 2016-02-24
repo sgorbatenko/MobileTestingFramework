@@ -26,7 +26,7 @@ public abstract class AbstractPage extends AbstractUIData
         getDriver());
     protected BaseHtmlElement dataLoadingWindow;
     protected AjaxHelper _syncHelper;
-    protected static SnapshotManager snapshotManager = new SnapshotManager();
+    protected final static SnapshotManager snapshotManager = new SnapshotManager();
 
     protected AbstractPage(WebDriver driver)
     {

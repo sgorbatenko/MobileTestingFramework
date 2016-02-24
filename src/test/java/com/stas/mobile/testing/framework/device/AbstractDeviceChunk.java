@@ -13,7 +13,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.google.common.base.Function;
 import com.stas.mobile.testing.framework.queryhelpers.DeviceElementQueryHelper;
 import com.stas.mobile.testing.framework.synchronization.SynchronizationHelper;
-import com.stas.mobile.testing.framework.util.drivers.SnapshotManager;
 import com.stas.mobile.testing.framework.util.drivers.WebDriverWrapper;
 import com.stas.mobile.testing.framework.util.logger.LogController;
 
@@ -23,7 +22,6 @@ import io.appium.java_client.MobileElement;
 public abstract class AbstractDeviceChunk extends AbstractDeviceUIData
 {
     protected String _selector;
-    protected SnapshotManager _snapshotManager = new SnapshotManager();
     private LogController _logger = new LogController(AbstractDeviceChunk.class);
 
     public AbstractDeviceChunk(String selector)

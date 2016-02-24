@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.PropertyConfigurator;
-import org.testng.Assert;
+import org.junit.Assert;
 
 import com.stas.mobile.testing.framework.util.logger.LogController;
 
@@ -111,7 +111,6 @@ public class EnvironmentUtil
         setTestDroidCredentials();
         setTestDroidProject();
         setTargetAppPath();
-        setBrowserStackUsernameAndKey();
         setDeviceName();
         setPlatformVersion();
         setIOSBundleId();
@@ -571,26 +570,6 @@ public class EnvironmentUtil
     public String getDataProvider()
     {
         return DataProvider;
-    }
-
-    private static void setBrowserStackUsernameAndKey()
-    {
-        if (System.getProperty("browserStackUserName") != null)
-        {
-            BrowserStackUserName = System.getProperty("browserStackUserName");
-        }
-        else
-        {
-            BrowserStackUserName = "brianrock2";
-        }
-        if (System.getProperty("browserStackKey") != null)
-        {
-            BrowserStackKey = System.getProperty("browserStackKey");
-        }
-        else
-        {
-            BrowserStackKey = "PLshKkTtwLerYy8Edj6d";
-        }
     }
 
     private static void setIsJenkinsRun()
@@ -1115,7 +1094,8 @@ public class EnvironmentUtil
         if (System.getProperty("takeSnapShots") != null)
         {
             TakeSnapShots = Boolean.valueOf(System.getProperty("takeSnapShots")
-                .toLowerCase().equals("true"));
+                .toLowerCase()
+                .equals("true"));
         }
         else
         {

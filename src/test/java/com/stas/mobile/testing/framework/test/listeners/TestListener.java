@@ -1,19 +1,17 @@
 
 package com.stas.mobile.testing.framework.test.listeners;
 
-import java.lang.reflect.Method;
-
-import org.testng.ITestContext;
-import org.testng.ITestNGMethod;
-import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
+import org.junit.runner.Description;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
+import org.junit.runner.notification.RunListener;
 
 import com.stas.mobile.testing.framework.util.drivers.SnapshotManager;
 import com.stas.mobile.testing.framework.util.drivers.WebDriverWrapper;
 import com.stas.mobile.testing.framework.util.environment.EnvironmentUtil;
 import com.stas.mobile.testing.framework.util.logger.LogController;
 
-public class TestListener extends TestListenerAdapter
+public class TestListener extends RunListener
 {
     private EnvironmentUtil _env = EnvironmentUtil.getInstance();
 
@@ -21,20 +19,20 @@ public class TestListener extends TestListenerAdapter
     private static LogController logger = new LogController(TestListener.class);
 
     @Override
-    public void onFinish(ITestContext context)
+    public void testRunFinished(Result context)
     {
         if (this._env.getLogATOMResults())
         {
-            String failed = String.valueOf(context.getFailedTests().size());
-            String passed = String.valueOf(context.getPassedTests().size());
-            String skipped = String.valueOf(context.getSkippedTests().size());
+            String failed = String.valueOf(context.getFailureCount());
+            String passed = String.valueOf(context.getRunCount() - context.getFailureCount());
+            String skipped = String.valueOf(context.getIgnoreCount());
 
             String url = "";
             // LogController.flushRunLogToS3(
             // WebDriverWrapper.getRunId(), this.env.getCustomerS3BucketName());
             String result = "pass";
-            if ((context.getFailedTests().size() > 0) ||
-                (context.getSkippedTests().size() > 0))
+            if ((context.getFailureCount() > 0) ||
+                (context.getIgnoreCount() > 0))
             {
                 result = "fail";
             }
@@ -65,7 +63,7 @@ public class TestListener extends TestListenerAdapter
     }
 
     @Override
-    public void onStart(ITestContext arg0)
+    public void testRunStarted(Description description)
     {
         if (this._env.getLogATOMResults())
         {
@@ -92,26 +90,31 @@ public class TestListener extends TestListenerAdapter
     }
 
     @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult arg0)
+    public void testStarted(Description description)
     {
+        logger.info("=== Starting test " + description + "===");
     }
 
     @Override
-    public void onTestSkipped(ITestResult testResult)
+    public void testFinished(Description description)
     {
-        ITestNGMethod testNGMethod = testResult.getMethod();
-        Method method = testNGMethod.getConstructorOrMethod().getMethod();
+        logger.info(String.format("Test Passed [" + description));
+        logger.info("=== Completed test " + description + " ===");
+    }
+
+    @Override
+    public void testFailure(Failure failure)
+    {
         try
         {
             if (!this._env.getIsMobileTest().booleanValue())
             {
-                SnapshotManager.takeScreenshot(method.getName(),
+                SnapshotManager.takeScreenshot(failure.getTestHeader(),
                     WebDriverWrapper.getWebDriver());
             }
             else
             {
-                SnapshotManager.takeRemoteDeviceSnapShot("SKIPPED_" + method
-                    .getName(),
+                SnapshotManager.takeRemoteDeviceSnapShot("FAILED " + failure.getTestHeader(),
                     WebDriverWrapper.getAppiumDriver());
             }
         }
@@ -121,132 +124,10 @@ public class TestListener extends TestListenerAdapter
             logger.info(exp.getMessage());
             WebDriverWrapper.getNewWebDriver();
         }
-        logger.info(String.format("Test Skipped [" +
-            TestNGListenerUtils.getCaseDescription(testResult)
-            + "]", new Object[0]));
-        if (this._env.getLogATOMResults())
-        {
-            // String url = LogController.flushMethodLogToS3(
-            // WebDriverWrapper.getRunId(), method.getName(), this.env
-            // .getCustomerS3BucketName());
-
-            String testTags = TestNGListenerUtils.getCaseTags(testResult);
-
-            String testDescription = TestNGListenerUtils.getCaseDescription(testResult);
-            String executionTime = String.valueOf(testResult.getEndMillis() - testResult
-                .getStartMillis());
-
-            logTestCaseResult("skip", method.getName(), testTags, testDescription, executionTime, "");
-        }
-        logger.info("=== Completed test " + method.getName() + " ===");
-    }
-
-    @Override
-    public void onTestStart(ITestResult testResult)
-    {
-        logger.info("=== Starting test " + testResult.getName() + "===");
-    }
-
-    @Override
-    public void onTestSuccess(ITestResult testResult)
-    {
-        if (this._env.getLogResults().booleanValue())
-        {
-            // this.testRailLogger.logResult(this.env.getTestRunId(),
-            // TestNGListenerUtils.getCaseDescription(testResult), 1);
-        }
-        ITestNGMethod testNGMethod = testResult.getMethod();
-        Method method = testNGMethod.getConstructorOrMethod().getMethod();
-        try
-        {
-            if (!this._env.getIsMobileTest().booleanValue())
-            {
-                SnapshotManager.takeScreenshot(method.getName(),
-                    WebDriverWrapper.getWebDriver());
-            }
-            else
-            {
-                SnapshotManager.takeRemoteDeviceSnapShot("PASSED" + method
-                    .getName(),
-                    WebDriverWrapper.getAppiumDriver());
-            }
-        }
-        catch (Exception exp)
-        {
-            logger.info("Exception thrown when trying to get screen shot. Resetting Driver.");
-            logger.info(exp.getMessage());
-
-            WebDriverWrapper.getNewWebDriver();
-        }
-        logger.info(String.format("Test Passed [" +
-            TestNGListenerUtils.getCaseDescription(testResult)
-            + "]", new Object[0]));
-        if (this._env.getLogATOMResults())
-        {
-            // String url = LogController.flushMethodLogToS3(
-            // WebDriverWrapper.getRunId(), method.getName(), this.env
-            // .getCustomerS3BucketName());
-
-            String testTags = TestNGListenerUtils.getCaseTags(testResult);
-
-            String testDescription = TestNGListenerUtils.getCaseDescription(testResult);
-            String executionTime = String.valueOf(testResult.getEndMillis() - testResult
-                .getStartMillis());
-
-            logTestCaseResult("pass", method.getName(), testTags, testDescription, executionTime, "");
-        }
-        logger.info("=== Completed test " + method.getName() + " ===");
-    }
-
-    @Override
-    public void onTestFailure(ITestResult testResult)
-    {
-        if (this._env.getLogResults().booleanValue())
-        {
-            // this.testRailLogger.logResult(this.env.getTestRunId(),
-            // TestNGListenerUtils.getCaseDescription(testResult), 5);
-        }
-        ITestNGMethod testNGMethod = testResult.getMethod();
-        Method method = testNGMethod.getConstructorOrMethod().getMethod();
-        try
-        {
-            if (!this._env.getIsMobileTest().booleanValue())
-            {
-                SnapshotManager.takeScreenshot(method.getName(),
-                    WebDriverWrapper.getWebDriver());
-            }
-            else
-            {
-                SnapshotManager.takeRemoteDeviceSnapShot("FAILED" + method
-                    .getName(),
-                    WebDriverWrapper.getAppiumDriver());
-            }
-        }
-        catch (Exception exp)
-        {
-            logger.info("Exception thrown when trying to get screen shot. Resetting Driver.");
-            logger.info(exp.getMessage());
-            WebDriverWrapper.getNewWebDriver();
-        }
-        logger.info("Test Result : Fail [" +
-            TestNGListenerUtils.getCaseDescription(testResult)
-            + "]");
+        logger.info("Test Result : Fail [" + failure + "]");
         this._env.setFailedTestDoReset(true);
-        if (this._env.getLogATOMResults())
-        {
-            // String url = LogController.flushMethodLogToS3(
-            // WebDriverWrapper.getRunId(), method.getName(), this.env
-            // .getCustomerS3BucketName());
 
-            String testTags = TestNGListenerUtils.getCaseTags(testResult);
-
-            String testDescription = TestNGListenerUtils.getCaseDescription(testResult);
-            String executionTime = String.valueOf(testResult.getEndMillis() - testResult
-                .getStartMillis());
-
-            logTestCaseResult("fail", method.getName(), testTags, testDescription, executionTime, "");
-        }
-        logger.info("=== Completed test " + method.getName() + " ===");
+        logger.info("=== Completed test " + failure.getTestHeader() + " ===");
     }
 
     private void logTestCaseResult(String result, String testName, String testTags, String testDescription,

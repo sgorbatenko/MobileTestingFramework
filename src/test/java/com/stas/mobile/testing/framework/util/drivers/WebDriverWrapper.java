@@ -43,6 +43,7 @@ import com.testdroid.api.http.MultipartFormDataContent;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
 
 public class WebDriverWrapper
 {
@@ -987,11 +988,11 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("device", "iPad");
-            capabilities.setCapability("deviceName", "iPad");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad");
             capabilities.setCapability("browserName", "Safari");
             capabilities.setCapability("testdroid_username", "brock@applausemail.com");
 
-            capabilities.setCapability("app", "safari");
+            capabilities.setCapability(MobileCapabilityType.APP, "safari");
             capabilities.setCapability("testdroid_password", "@pplause1");
 
             capabilities.setCapability("testdroid_project", "Mastercard");
@@ -1029,8 +1030,8 @@ public class WebDriverWrapper
             capabilities.setCapability("testdroid_testrun", getRunId());
             capabilities.setCapability("testdroid_device", "Asus Google Nexus 7 (2013) ME571KL 4.4.4");
 
-            capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("deviceName", "AndroidDevice");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "AndroidDevice");
             capabilities.setCapability("browserName", "chrome");
 
             driver = new AndroidDriver(new URL("http://appium.testdroid.com/wd/hub"), capabilities);
@@ -1052,12 +1053,12 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "Android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
             capabilities.setCapability("platformVersion", "4.4.4");
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             capabilities.setCapability("device", "android");
-            capabilities.setCapability("deviceName", "Nexus 7");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 7");
             capabilities.setCapability("testdroid_username", env
                 .getTestDroidUserName());
             capabilities.setCapability("testdroid_password", env
@@ -1071,7 +1072,7 @@ public class WebDriverWrapper
 
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "Android");
-            capabilities.setCapability("app", env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getAppPackage());
             logger.info("About to create driver from Test Droid.");
             appiumDriver = new AndroidDriver(new URL("http://appium.testdroid.com/wd/hub"), capabilities);
 
@@ -1098,12 +1099,12 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "Android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
             capabilities.setCapability("platformVersion", platformVersion);
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             capabilities.setCapability("device", "android");
-            capabilities.setCapability("deviceName", deviceName);
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
             capabilities.setCapability("testdroid_username", env
                 .getTestDroidUserName());
             capabilities.setCapability("testdroid_password", env
@@ -1116,7 +1117,7 @@ public class WebDriverWrapper
             capabilities.setCapability("testdroid_device", testDroidDeviceName);
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "Android");
-            capabilities.setCapability("app", env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getAppPackage());
 
             logger.info("About to create driver from Test Droid.");
             appiumDriver = new AndroidDriver(new URL("http://appium.testdroid.com/wd/hub"), capabilities);
@@ -1144,12 +1145,12 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "Android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
             capabilities.setCapability("platformVersion", platformVersion);
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             capabilities.setCapability("device", "android");
-            capabilities.setCapability("deviceName", deviceName);
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
             capabilities.setCapability("testdroid_username", env
                 .getTestDroidUserName());
             capabilities.setCapability("testdroid_password", env
@@ -1164,7 +1165,7 @@ public class WebDriverWrapper
             capabilities.setCapability("testdroid_device", testDroidDeviceName);
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "Android");
-            capabilities.setCapability("app", env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getAppPackage());
             if (env.getUseKeystore())
             {
                 capabilities.setCapability("useKeystore", true);
@@ -1198,12 +1199,12 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "Android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
             capabilities.setCapability("platformVersion", "4.4");
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             capabilities.setCapability("device", "android");
-            capabilities.setCapability("deviceName", "Nexus 5");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 5");
             capabilities.setCapability("testdroid_username", env
                 .getTestDroidUserName());
             capabilities.setCapability("testdroid_password", env
@@ -1218,7 +1219,7 @@ public class WebDriverWrapper
 
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "Android");
-            capabilities.setCapability("app", env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getAppPackage());
             logger.info("About to create driver from Test Droid.");
             appiumDriver = new AndroidDriver(new URL("http://appium.testdroid.com/wd/hub"), capabilities);
 
@@ -1241,12 +1242,12 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "Android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
             capabilities.setCapability("platformVersion", "4.3");
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             capabilities.setCapability("device", "android");
-            capabilities.setCapability("deviceName", "Nexus 7");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 7");
             capabilities.setCapability("testdroid_username", env
                 .getTestDroidUserName());
             capabilities.setCapability("testdroid_password", env
@@ -1261,7 +1262,7 @@ public class WebDriverWrapper
 
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "Android");
-            capabilities.setCapability("app", env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getAppPackage());
             logger.info("About to create driver from Test Droid.");
             appiumDriver = new AndroidDriver(new URL("http://appium.testdroid.com/wd/hub"), capabilities);
 
@@ -1283,11 +1284,11 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("browserName", "chrome");
-            capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("deviceName", "nexus_seven");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "nexus_seven");
             capabilities.setCapability("platformVersion", "5.0");
-            capabilities.setCapability("app-package", "com.android.chrome");
-            capabilities.setCapability("app-activity", ".Main");
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, "com.android.chrome");
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, ".Main");
 
             driver = new RemoteWebDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
         }
@@ -1304,8 +1305,8 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("browserName", "Chrome");
-            capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("deviceName", "nexus_nine");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "nexus_nine");
             capabilities.setCapability("platformVersion", "5.0.1");
 
             driver = new RemoteWebDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
@@ -1323,8 +1324,8 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("browserName", "safari");
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPad 2");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad 2");
             capabilities.setCapability("platformVersion", "8.2");
             capabilities.setCapability("uuid", "66cd479f4a78256cfec6e6e271765992e35ef5b5");
 
@@ -1344,8 +1345,8 @@ public class WebDriverWrapper
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("bundleid", "com.apple.mobilesafari");
             capabilities.setCapability("browserName", "Safari");
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPad Mini");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad Mini");
             capabilities.setCapability("platformVersion", "8.3");
             capabilities.setCapability("udid", "66cd479f4a78256cfec6e6e271765992e35ef5b5");
 
@@ -1366,8 +1367,8 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("browserName", "safari");
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPhone");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone");
             capabilities.setCapability("platformVersion", "8.3");
             capabilities.setCapability("udid", "52877fb3164cd7a8d53c708d2bf3ee78a15772d0");
 
@@ -1387,8 +1388,8 @@ public class WebDriverWrapper
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("bundleid", "com.apple.mobilesafari");
             capabilities.setCapability("browserName", "Safari");
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPad Mini");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad Mini");
             capabilities.setCapability("platformVersion", "8.3");
             capabilities.setCapability("udid", "66cd479f4a78256cfec6e6e271765992e35ef5b5");
 
@@ -1410,10 +1411,10 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPhone 5s");
-            capabilities.setCapability("app", env.getTargetAppPath());
-            capabilities.setCapability("app", env.getPlatformVersion());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 5s");
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
+            capabilities.setCapability("platformVersion", env.getPlatformVersion());
 
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
@@ -1438,10 +1439,10 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPhone 6");
-            capabilities.setCapability("app", env.getPlatformVersion());
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 6");
+            capabilities.setCapability("platformVersion", env.getPlatformVersion());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
 
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
@@ -1513,7 +1514,7 @@ public class WebDriverWrapper
                 capabilities.setCapability(key, value);
             }
         }
-        String platformName = props.getProperty("platformName");
+        String platformName = props.getProperty(MobileCapabilityType.PLATFORM_NAME);
         try
         {
             if (platformName.equals("iOS"))
@@ -1531,8 +1532,8 @@ public class WebDriverWrapper
         {
             e.printStackTrace();
         }
-        String deviceName = props.getProperty("deviceName");
-        String appPath = props.getProperty("app");
+        String deviceName = props.getProperty(MobileCapabilityType.DEVICE_NAME);
+        String appPath = props.getProperty(MobileCapabilityType.APP);
         logger.info(String.format("Created device [%s] using [%s].", new Object[]{deviceName, appPath}));
     }
 
@@ -1549,10 +1550,10 @@ public class WebDriverWrapper
             logger.error("Problem encountered trying to load generic properties");
             e.printStackTrace();
         }
-        String platformName = props.getProperty("platformName");
+        String platformName = props.getProperty(MobileCapabilityType.PLATFORM_NAME);
         String platformVersion = props.getProperty("platformVersion");
-        String deviceName = props.getProperty("deviceName");
-        String app = props.getProperty("app");
+        String deviceName = props.getProperty(MobileCapabilityType.DEVICE_NAME);
+        String app = props.getProperty(MobileCapabilityType.APP);
         String noReset = props.getProperty("noReset");
 
         String appActivity = props.getProperty("appActivity");
@@ -1572,18 +1573,18 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
 
-            capabilities.setCapability("platformName", platformVersion);
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformVersion);
             if (platformName.length() > 0)
             {
-                capabilities.setCapability("platformName", platformName);
+                capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformName);
             }
             if (deviceName.length() > 0)
             {
-                capabilities.setCapability("deviceName", deviceName);
+                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
             }
             if (app.length() > 0)
             {
-                capabilities.setCapability("app", app);
+                capabilities.setCapability(MobileCapabilityType.APP, app);
             }
             if (noReset.length() > 0)
             {
@@ -1652,10 +1653,10 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPhone 6 Plus");
-            capabilities.setCapability("app", env.getTargetAppPath());
-            capabilities.setCapability("app", env.getPlatformVersion());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 6 Plus");
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getPlatformVersion());
 
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
@@ -1681,10 +1682,10 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPhone 5");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 5");
             capabilities.setCapability("platformVersion", "7.1");
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
 
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
@@ -1710,10 +1711,10 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("platformVersion", "7.1");
-            capabilities.setCapability("deviceName", "iPad 2");
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability("platformVersion", "9.2");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad Air");
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
 
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
@@ -1738,9 +1739,9 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", env.getDeviceName());
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, env.getDeviceName());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
             capabilities.setCapability("udid", env.getUdid());
             capabilities.setCapability("bundleId", env.getIosBundleId());
             capabilities.setCapability("autoAcceptAlerts", env
@@ -1767,9 +1768,9 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", env.getDeviceName());
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, env.getDeviceName());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
             capabilities.setCapability("udid", env.getUdid());
             capabilities.setCapability("bundleId", env.getIosBundleId());
             capabilities.setCapability("autoAcceptAlerts", env
@@ -1793,10 +1794,10 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("browserName", "safari");
-            capabilities.setCapability("platformName", "iOS");
-            capabilities.setCapability("deviceName", "iPad Air");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad Air");
             capabilities.setCapability("platformVersion", "8.3");
-            capabilities.setCapability("app", "safari");
+            capabilities.setCapability(MobileCapabilityType.APP, "safari");
             driver = new IOSDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
         }
         catch (MalformedURLException e)
@@ -1813,11 +1814,11 @@ public class WebDriverWrapper
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("takesScreenshot", true);
             capabilities.setCapability("browserName", "Safari");
-            capabilities.setCapability("platformName", "ios");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "ios");
             capabilities.setCapability("automationName", "appium");
-            capabilities.setCapability("deviceName", "Apple iPad 4");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Apple iPad 4");
             capabilities.setCapability("platformVersion", "7.1");
-            capabilities.setCapability("app", Integer.valueOf(env.getAppThwackAppId()));
+            capabilities.setCapability(MobileCapabilityType.APP, Integer.valueOf(env.getAppThwackAppId()));
             capabilities.setCapability("apiKey", env.getAppThwackApiKey());
             capabilities.setCapability("project", Integer.valueOf(env.getAppThwackProjectId()));
             logger.info("About to call driver...");
@@ -2024,15 +2025,15 @@ public class WebDriverWrapper
             capabilities.setCapability("browserName", "");
             capabilities.setCapability("browserName", "selendroid");
 
-            capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("deviceName", "Nexus 7");
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Nexus 7");
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
             capabilities.setCapability("noSign", env.getNoSign());
             capabilities.setCapability("platformVersion", "4.4.4");
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             appiumDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
         }
         catch (MalformedURLException e)
@@ -2051,15 +2052,15 @@ public class WebDriverWrapper
             capabilities.setCapability("browserName", "");
             capabilities.setCapability("browserName", "selendroid");
 
-            capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("deviceName", "nexus_seven");
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "nexus_seven");
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
             capabilities.setCapability("noSign", env.getNoSign());
             capabilities.setCapability("platformVersion", "4.4.2");
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             appiumDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
         }
         catch (MalformedURLException e)
@@ -2078,16 +2079,16 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
 
-            capabilities.setCapability("platformName", "Android");
-            capabilities.setCapability("deviceName", env.getDeviceName());
-            capabilities.setCapability("app", env.getTargetAppPath());
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, env.getDeviceName());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
             capabilities.setCapability("noSign", env.getNoSign());
             capabilities.setCapability("platformVersion", env
                 .getPlatformVersion());
             capabilities.setCapability("autoAcceptAlerts", env
                 .getAutoAcceptAlerts());
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             appiumDriver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), capabilities);
         }
         catch (MalformedURLException e)
@@ -2103,15 +2104,15 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
             capabilities.setCapability("platformVersion", "4.4.4");
             capabilities.setCapability("automationName", "Appium");
-            capabilities.setCapability("deviceName", "Asus Nexus 7 2");
-            capabilities.setCapability("app", Integer.valueOf(env.getAppThwackAppId()));
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Asus Nexus 7 2");
+            capabilities.setCapability(MobileCapabilityType.APP, Integer.valueOf(env.getAppThwackAppId()));
             capabilities.setCapability("apiKey", env.getAppThwackApiKey());
             capabilities.setCapability("project", Integer.valueOf(env.getAppThwackProjectId()));
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             logger.info("About to create app thwack nexus 7.");
             appiumDriver = new AndroidDriver(new URL("https://appthwack.com/wd/hub"), capabilities);
 
@@ -2133,15 +2134,15 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
             capabilities.setCapability("platformVersion", "4.4.4");
             capabilities.setCapability("automationName", "Appium");
-            capabilities.setCapability("deviceName", "LG Nexus 5");
-            capabilities.setCapability("app", Integer.valueOf(env.getAppThwackAppId()));
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "LG Nexus 5");
+            capabilities.setCapability(MobileCapabilityType.APP, Integer.valueOf(env.getAppThwackAppId()));
             capabilities.setCapability("apiKey", env.getAppThwackApiKey());
             capabilities.setCapability("project", Integer.valueOf(env.getAppThwackProjectId()));
-            capabilities.setCapability("app-package", env.getAppPackage());
-            capabilities.setCapability("app-activity", env.getAppActivity());
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, env.getAppPackage());
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, env.getAppActivity());
             logger.info("About to create app thwack nexus 5.");
             appiumDriver = new AndroidDriver(new URL("https://appthwack.com/wd/hub"), capabilities);
 
@@ -2165,11 +2166,11 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "ios");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "ios");
             capabilities.setCapability("platformVersion", "8.0");
             capabilities.setCapability("automationName", "appium");
-            capabilities.setCapability("deviceName", "Apple iPhone 6");
-            capabilities.setCapability("app", Integer.valueOf(env.getAppThwackAppId()));
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Apple iPhone 6");
+            capabilities.setCapability(MobileCapabilityType.APP, Integer.valueOf(env.getAppThwackAppId()));
             capabilities.setCapability("apiKey", env.getAppThwackApiKey());
             capabilities.setCapability("project", Integer.valueOf(env.getAppThwackProjectId()));
             logger.info("About to create appthwack iphone 6.");
@@ -2196,11 +2197,11 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "ios");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "ios");
             capabilities.setCapability("platformVersion", "8.1");
             capabilities.setCapability("automationName", "appium");
-            capabilities.setCapability("deviceName", "Apple iPad 4");
-            capabilities.setCapability("app", Integer.valueOf(env.getAppThwackAppId()));
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Apple iPad 4");
+            capabilities.setCapability(MobileCapabilityType.APP, Integer.valueOf(env.getAppThwackAppId()));
             capabilities.setCapability("apiKey", env.getAppThwackApiKey());
             capabilities.setCapability("project", Integer.valueOf(env.getAppThwackProjectId()));
             logger.info("About to create appthwack ipad 4.");
@@ -2227,16 +2228,16 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "android");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
             capabilities.setCapability("platformVersion", "4.4.4");
             capabilities.setCapability("automationName", "Appium");
-            capabilities.setCapability("deviceName", "Asus Nexus 7 2");
-            capabilities.setCapability("app", "121794");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Asus Nexus 7 2");
+            capabilities.setCapability(MobileCapabilityType.APP, "121794");
             capabilities.setCapability("apiKey", "EsfCWchlY8twR949UJMmGJYhH83uckf9St89KCGA");
 
             capabilities.setCapability("project", "24527");
-            capabilities.setCapability("app-package", "com.fox.now");
-            capabilities.setCapability("app-activity", "com.fox.now.SplashScreenActivity");
+            capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, "com.fox.now");
+            capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.fox.now.SplashScreenActivity");
 
             logger.info("About to create driver.");
             appiumDriver = new AndroidDriver(new URL("https://appthwack.com/wd/hub"), capabilities);
@@ -2264,9 +2265,9 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
             capabilities.setCapability("device", "iphone");
-            capabilities.setCapability("deviceName", "iOS Phone");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iOS Phone");
             capabilities.setCapability("testdroid_username", env
                 .getTestDroidUserName());
             capabilities.setCapability("testdroid_password", env
@@ -2281,7 +2282,7 @@ public class WebDriverWrapper
                 .setCapability("testdroid_device", "iPhone 6 A1586 8.2");
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "iOS");
-            capabilities.setCapability("app", env.getIosBundleId());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getIosBundleId());
             logger.info("About to create driver from Test Droid.");
             appiumDriver = new IOSDriver(new URL("http://appium.testdroid.com/wd/hub"), capabilities);
 
@@ -2315,9 +2316,9 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
             capabilities.setCapability("device", device);
-            capabilities.setCapability("deviceName", deviceName);
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
             capabilities.setCapability("testdroid_project", env
                 .getTestDroidProjectName());
             capabilities.setCapability("testdroid_description", env
@@ -2331,7 +2332,7 @@ public class WebDriverWrapper
             capabilities.setCapability("testdroid_device", testDroidDeviceName);
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "iOS");
-            capabilities.setCapability("app", env.getIosBundleId());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getIosBundleId());
 
             capabilities.setCapability("newCommandTimeout", Integer.valueOf(200));
 
@@ -2371,9 +2372,9 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
             capabilities.setCapability("device", device);
-            capabilities.setCapability("deviceName", deviceName);
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
             capabilities.setCapability("testdroid_project", env
                 .getTestDroidProjectName());
             capabilities.setCapability("testdroid_description", env
@@ -2387,7 +2388,7 @@ public class WebDriverWrapper
             capabilities.setCapability("testdroid_device", testDroidDeviceName);
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "iOS");
-            capabilities.setCapability("app", env.getIosBundleId());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getIosBundleId());
 
             capabilities.setCapability("newCommandTimeout", Integer.valueOf(200));
 
@@ -2420,9 +2421,9 @@ public class WebDriverWrapper
         try
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("platformName", "iOS");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
             capabilities.setCapability("device", "iphone");
-            capabilities.setCapability("deviceName", "iPad Air");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad Air");
             capabilities.setCapability("testdroid_username", env
                 .getTestDroidUserName());
             capabilities.setCapability("testdroid_password", env
@@ -2437,7 +2438,7 @@ public class WebDriverWrapper
 
             capabilities.setCapability("testdroid_app", "latest");
             capabilities.setCapability("testdroid_target", "iOS");
-            capabilities.setCapability("app", env.getIosBundleId());
+            capabilities.setCapability(MobileCapabilityType.APP, env.getIosBundleId());
             logger.info("About to create driver from Test Droid.");
             appiumDriver = new IOSDriver(new URL("http://appium.testdroid.com/wd/hub"), capabilities);
 

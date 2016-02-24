@@ -4,7 +4,7 @@ package com.stas.mobile.testing.framework.device.controls;
 import com.stas.mobile.testing.framework.util.logger.LogController;
 
 public class Text
-                 extends BaseDeviceControl
+                  extends BaseDeviceControl
 {
     private LogController logger = new LogController(Text.class);
 
@@ -23,8 +23,7 @@ public class Text
 
     public void clickText()
     {
-        this.logger.info(String.format("Clicking Text Element with selector [%s].", new Object[]{this._selector
-            .toString()}));
+        this.logger.info(String.format("Clicking Text Element with selector [%s].", new Object[]{this._selector}));
         this.element.click();
     }
 

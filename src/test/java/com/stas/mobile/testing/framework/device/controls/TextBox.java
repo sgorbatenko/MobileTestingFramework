@@ -1,13 +1,13 @@
 
 package com.stas.mobile.testing.framework.device.controls;
 
-import io.appium.java_client.TouchAction;
-
 import com.stas.mobile.testing.framework.util.drivers.WebDriverWrapper;
 import com.stas.mobile.testing.framework.util.logger.LogController;
 
+import io.appium.java_client.TouchAction;
+
 public class TextBox
-                    extends BaseDeviceControl
+                     extends BaseDeviceControl
 {
     private LogController logger = new LogController(TextBox.class);
 
@@ -18,9 +18,7 @@ public class TextBox
 
     public void enterText(String value)
     {
-        this.logger.info(String.format("Entering [%s] into TextBox with selector [%s].", new Object[]{value, this._selector
-
-            .toString()}));
+        this.logger.info(String.format("Entering [%s] into TextBox with selector [%s].", new Object[]{value, this._selector}));
         if (this._env.getIsMobileIOS())
         {
             this.element.setValue(value);
@@ -33,8 +31,7 @@ public class TextBox
 
     public void clearTextBoxWithTip(String tip)
     {
-        this.logger.info(String.format("Clearing textbox with selector [%s].", new Object[]{this._selector
-            .toString()}));
+        this.logger.info(String.format("Clearing textbox with selector [%s].", new Object[]{this._selector}));
         if (this._env.getIsMobileIOS())
         {
             this.element.clear();
@@ -59,8 +56,7 @@ public class TextBox
 
     public void clearTextBox()
     {
-        this.logger.info(String.format("Clearing textbox with selector [%s].", new Object[]{this._selector
-            .toString()}));
+        this.logger.info(String.format("Clearing textbox with selector [%s].", new Object[]{this._selector}));
         TouchAction action = new TouchAction(WebDriverWrapper.getAppiumDriver());
         if (this._env.getIsMobileIOS())
         {
@@ -76,16 +72,13 @@ public class TextBox
 
     public String getCurrentText()
     {
-        this.logger.info(String.format("Returning value from textbox with selector [%s].", new Object[]{this._selector
-
-            .toString()}));
+        this.logger.info(String.format("Returning value from textbox with selector [%s].", new Object[]{this._selector}));
         return this.element.getText();
     }
 
     public void clickTextBox()
     {
-        this.logger.info(String.format("Clicking textbox with selector [%s].", new Object[]{this._selector
-            .toString()}));
+        this.logger.info(String.format("Clicking textbox with selector [%s].", new Object[]{this._selector}));
         this.element.click();
     }
 }

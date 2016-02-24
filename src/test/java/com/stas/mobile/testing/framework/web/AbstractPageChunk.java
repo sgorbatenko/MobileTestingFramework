@@ -21,7 +21,7 @@ import com.stas.mobile.testing.framework.util.logger.LogController;
 public abstract class AbstractPageChunk extends AbstractUIData
 {
     public static final int DEFAULT_TIMEOUT = 60;
-    protected static UIData Parent;
+    protected UIData _parent;
     protected String _selector;
     protected WebElementQueryHelper _queryHelper;
     protected AjaxHelper _syncHelper;
@@ -29,13 +29,13 @@ public abstract class AbstractPageChunk extends AbstractUIData
 
     public AbstractPageChunk(UIData parentUI, String selector)
     {
-        Parent = parentUI;
+        _parent = parentUI;
         this._selector = selector;
         this._logger.debug("Selector = " + selector);
         WebDriver driver = WebDriverWrapper.getWebDriver();
         this._queryHelper = new WebElementQueryHelper(driver);
         this._syncHelper = new AjaxHelper(driver);
-        Parent.addChild(this);
+        _parent.addChild(this);
     }
 
     public WebElement getWebElement()
@@ -122,7 +122,7 @@ public abstract class AbstractPageChunk extends AbstractUIData
     @Override
     public UIData getParent()
     {
-        return Parent;
+        return _parent;
     }
 
     public void setSelector(String newBaseSelector)

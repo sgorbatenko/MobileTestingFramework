@@ -45,13 +45,11 @@ public abstract class AbstractDeviceChunk extends AbstractDeviceUIData
         }
         catch (TimeoutException te)
         {
-            throw new RuntimeException("Timeout for element: " + getSelector(),
-                te);
+            throw new RuntimeException("Timeout for element: " + getSelector(), te);
         }
         catch (Exception e)
         {
-            throw new RuntimeException("Exception getting element: "
-                + getSelector(), e);
+            throw new RuntimeException("Exception getting element: " + getSelector(), e);
         }
     }
 
@@ -68,8 +66,7 @@ public abstract class AbstractDeviceChunk extends AbstractDeviceUIData
         }
         catch (TimeoutException te)
         {
-            throw new RuntimeException(
-                "Timeout for elements: " + getSelector(), te);
+            throw new RuntimeException("Timeout for elements: " + getSelector(), te);
         }
         catch (Exception e)
         {

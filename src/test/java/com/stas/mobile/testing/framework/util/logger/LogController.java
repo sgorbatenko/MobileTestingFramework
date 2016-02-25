@@ -3,9 +3,6 @@ package com.stas.mobile.testing.framework.util.logger;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import com.stas.mobile.testing.framework.util.environment.EnvironmentUtil;
 
@@ -45,7 +42,6 @@ public class LogController
     {
         this.logLevel = env.getLogLevel();
         logger.debug(message);
-        this.logger.debug(message);
         if ((this.logLevel.equals(Level.TRACE)) || (this.logLevel.equals(Level.DEBUG)))
         {
             writeToBuffers(message);
@@ -83,7 +79,6 @@ public class LogController
         // this.logLevel = env.getLogLevel();
         this.logLevel = logger.getLevel();
         logger.error(message);
-        this.logger.error(message);
         if ((this.logLevel.equals(Level.TRACE)) || (this.logLevel.equals(Level.DEBUG))
             ||
             (this.logLevel.equals(Level.INFO))
@@ -101,7 +96,6 @@ public class LogController
         // this.logLevel = env.getLogLevel();
         this.logLevel = logger.getLevel();
         logger.fatal(message);
-        this.logger.fatal(message);
         if ((this.logLevel.equals(Level.TRACE)) || (this.logLevel.equals(Level.DEBUG))
             ||
             (this.logLevel.equals(Level.INFO))
@@ -118,15 +112,15 @@ public class LogController
 
     private void writeToBuffers(String message)
     {
-        DateTime dt = new DateTime();
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd-HH:ss");
-        String dateStamp = fmt.print(dt);
-        this.className = this.className.replace("com.applause.auto.framework.pageframework.", "");
-
-        methodLog.append("\n" + dateStamp + " [" + this.className + "] : ");
-        runLog.append("\n" + dateStamp + " [" + this.className + "] : ");
-
-        methodLog.append(message);
-        runLog.append(message);
+        // DateTime dt = new DateTime();
+        // DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd-HH:ss");
+        // String dateStamp = fmt.print(dt);
+        // this.className = this.className.replace("com.applause.auto.framework.pageframework.", "");
+        //
+        // methodLog.append("\n" + dateStamp + " [" + this.className + "] : ");
+        // runLog.append("\n" + dateStamp + " [" + this.className + "] : ");
+        //
+        // methodLog.append(message);
+        // runLog.append(message);
     }
 }

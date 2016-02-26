@@ -10,14 +10,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Needed for allure-maven-plugin to specify report version -->
-        <allure.version>1.4.11</allure.version>
+        <allure.version>1.4</allure.version>
         <aspectj.version>1.7.4</aspectj.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>ru.yandex.qatools.allure</groupId>
             <artifactId>allure-cucumber-jvm-adaptor</artifactId>
-            <version>1.5.1</version>
+            <version>${allure.version}</version>
         </dependency>
         <dependency>
             <groupId>io.appium</groupId>

@@ -21,7 +21,7 @@ public class TextBox
         this.logger.info(String.format("Entering [%s] into TextBox with selector [%s].", new Object[]{value, this._selector}));
         if (this._env.getIsMobileIOS())
         {
-            this.element.setValue(value);
+            this.element.sendKeys(value);
         }
         else
         {
@@ -41,7 +41,7 @@ public class TextBox
             this.element.click();
             while (this.element.getAttribute("name").length() > 0)
             {
-                this._driver.sendKeyEvent(67);
+                // this._driver.sendKeyEvent(67);
                 this.logger.debug(String.format("Clearing current value [%s] with length [%d].", new Object[]{this.element
 
                     .getAttribute("name"),
@@ -66,7 +66,7 @@ public class TextBox
         {
             this.element.click();
             this._driver.performTouchAction(action.longPress(this.element));
-            this._driver.sendKeyEvent(67);
+            // this._driver.pressKeyCode(67);
         }
     }
 

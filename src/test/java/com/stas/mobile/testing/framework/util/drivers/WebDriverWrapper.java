@@ -1712,7 +1712,7 @@ public class WebDriverWrapper
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-            capabilities.setCapability("platformVersion", "9.2");
+            capabilities.setCapability("platformVersion", env.getPlatformVersion());
             capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPad Air");
             capabilities.setCapability(MobileCapabilityType.APP, env.getTargetAppPath());
 
